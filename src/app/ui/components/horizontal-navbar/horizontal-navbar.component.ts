@@ -24,8 +24,8 @@ export class HorizontalNavbarComponent implements OnInit {
   ngOnInit() {}
 
   open(event) {
-    let clickedComponent = event.target.closest('.nav-item');
-    let items = clickedComponent.parentElement.children;
+    const clickedComponent = event.target.closest('.nav-item');
+    const items = clickedComponent.parentElement.children;
 
     event.preventDefault();
 
@@ -39,8 +39,8 @@ export class HorizontalNavbarComponent implements OnInit {
   }
 
   close(event) {
-    let clickedComponent = event.target;
-    let items = clickedComponent.parentElement.children;
+    const clickedComponent = event.target;
+    const items = clickedComponent.parentElement.children;
 
     event.preventDefault();
 
