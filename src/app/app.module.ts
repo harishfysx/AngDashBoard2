@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from './app.routing.module';
 import {MembersModule} from './members/members.module';
+import {UiModule} from './ui/ui.module';
+import {NiComponentsModule} from './ni-components/ni-components.module';
+import {SharedService} from './members/shared-service';
 
 
 
@@ -14,9 +17,11 @@ import {MembersModule} from './members/members.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MembersModule
+    MembersModule,
+    UiModule,
+    NiComponentsModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
