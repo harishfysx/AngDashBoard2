@@ -8,6 +8,7 @@ import {UiModule} from './ui/ui.module';
 import {NiComponentsModule} from './ni-components/ni-components.module';
 import {SharedService} from './members/shared-service';
 import {LandingModule} from './landing/landing.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -21,6 +22,7 @@ import {LandingModule} from './landing/landing.module';
     MembersModule,
     LandingModule,
     UiModule,
+    BrowserAnimationsModule,
     NiComponentsModule
   ],
   providers: [SharedService],

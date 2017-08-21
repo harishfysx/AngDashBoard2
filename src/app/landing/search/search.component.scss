@@ -1,63 +1,54 @@
-@import '../../../assets/sass/variable';
+/*!
+ * Bootstrap v4.0.0-alpha.6 (https://getbootstrap.com)
+ * Copyright 2011-2017 The Bootstrap Authors
+ * Copyright 2011-2017 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
 
-:host {
-  align-items: center;
-  background: #8dd1dc;
-  color: #fff;
-  display: table-cell;
-  height: 100%;
-  padding: ($module-rem * 2);
-  text-align: center;
-  vertical-align: middle;
-  width: 100%;
+// Core variables and mixins
+@import "../../../assets/sass/bootstrap/variables";
+@import "../../../assets/sass/bootstrap/mixins";
+//@import "../../../assets/sass/bootstrap/custom";
 
-  h1 {
-    font-size: 3.5rem;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 9.5rem;
-    position: relative;
-    @media #{$max767} {
-      margin-bottom: 6rem;
-    }
+// Reset and dependencies
+//@import "../../../assets/sass/bootstrap/normalize";
+//@import "../../../assets/sass/bootstrap/print";
 
-    &:before {
-      content: "\f29c";
-      display: flex;
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 26rem;
-      justify-content: center;
-      left: 0;
-      line-height: 1;
-      margin-top: -13rem;
-      opacity: .2;
-      position: absolute;
-      right: 0;
-      text-rendering: auto;
-      top: 50%;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      @media #{$max767} {
-        font-size: 20rem;
-        margin-top: -10rem;
-      }
-    }
-  }
-  h2 {
-    font-size: 2rem;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: .5rem;
-  }
-  p {
-    color: rgba(#fff,.5);
-    margin: 0;
-  }
-  a {
-    color: rgba(#fff,.7);
+// Core CSS
+//@import "../../../assets/sass/bootstrap/reboot";
+//@import "../../../assets/sass/bootstrap/type";
+//@import "../../../assets/sass/bootstrap/images";
+//@import "../../../assets/sass/bootstrap/code";
+//@import "../../../assets/sass/bootstrap/grid";
+//@import "../../../assets/sass/bootstrap/tables";
+//@import "../../../assets/sass/bootstrap/forms";
+//@import "../../../assets/sass/bootstrap/buttons";
 
-    &:hover {
-      color: #fff;
-    }
-  }
-}
+// Components
+//@import "../../../assets/sass/bootstrap/transitions";
+//@import "../../../assets/sass/bootstrap/dropdown";
+//@import "../../../assets/sass/bootstrap/button-group";
+//@import "../../../assets/sass/bootstrap/input-group";
+//@import "../../../assets/sass/bootstrap/custom-forms";
+//@import "../../../assets/sass/bootstrap/nav";
+@import "../../../assets/sass/bootstrap/navbar";
+//@import "../../../assets/sass/bootstrap/card";
+//@import "../../../assets/sass/bootstrap/breadcrumb";
+//@import "../../../assets/sass/bootstrap/pagination";
+//@import "../../../assets/sass/bootstrap/badge";
+//@import "../../../assets/sass/bootstrap/jumbotron";
+//@import "../../../assets/sass/bootstrap/alert";
+//@import "../../../assets/sass/bootstrap/progress";
+//@import "../../../assets/sass/bootstrap/media";
+//@import "../../../assets/sass/bootstrap/list-group";
+//@import "../../../assets/sass/bootstrap/responsive-embed";
+//@import "../../../assets/sass/bootstrap/close";
+
+// Components w/ JavaScript
+//@import "../../../assets/sass/bootstrap/modal";
+//@import "../../../assets/sass/bootstrap/tooltip";
+//@import "../../../assets/sass/bootstrap/popover";
+//@import "../../../assets/sass/bootstrap/carousel";
+
+// Utility classes
+//@import "../../../assets/sass/bootstrap/utilities";
