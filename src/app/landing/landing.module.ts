@@ -5,16 +5,20 @@ import {LandingRoutingModule} from './landing.routing.module';
 import { SearchComponent } from './search/search.component';
 import {MaterialModule} from '@angular/material';
 import {AgmCoreModule} from '@agm/core';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import {FormsModule} from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAU9f7luK3J31nurL-Io3taRKF7w9BItQE'
     }),
     LandingRoutingModule
   ],
-  declarations: [LandingComponent, SearchComponent]
+  declarations: [LandingComponent, SearchComponent, NavBarComponent]
 })
 export class LandingModule { }

@@ -6,8 +6,8 @@
  */
 
 // Core variables and mixins
-//@import "../../../assets/sass/bootstrap/variables";
-//@import "../../../assets/sass/bootstrap/mixins";
+@import "../../../assets/sass/bootstrap/variables";
+@import "../../../assets/sass/bootstrap/mixins";
 //@import "../../../assets/sass/bootstrap/custom";
 
 // Reset and dependencies
@@ -30,8 +30,8 @@
 //@import "../../../assets/sass/bootstrap/button-group";
 //@import "../../../assets/sass/bootstrap/input-group";
 //@import "../../../assets/sass/bootstrap/custom-forms";
-//@import "../../../assets/sass/bootstrap/nav";
-//@import "../../../assets/sass/bootstrap/navbar";
+@import "../../../assets/sass/bootstrap/nav";
+@import "../../../assets/sass/bootstrap/navbar";
 //@import "../../../assets/sass/bootstrap/card";
 //@import "../../../assets/sass/bootstrap/breadcrumb";
 //@import "../../../assets/sass/bootstrap/pagination";
@@ -52,12 +52,6 @@
 
 // Utility classes
 //@import "../../../assets/sass/bootstrap/utilities";
-body {
-  padding-top: 5rem;
+.bg-custom{
+  background-color: #252d47;
 }
-.starter-template {
-  padding: 3rem 1.5rem;
-  text-align: center;
-}
-
-.top-buffer { margin-top:20px; }
