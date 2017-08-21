@@ -7,6 +7,7 @@ import {MembersModule} from './members/members.module';
 import {UiModule} from './ui/ui.module';
 import {NiComponentsModule} from './ni-components/ni-components.module';
 import {SharedService} from './members/shared-service';
+import {LandingModule} from './landing/landing.module';
 
 
 
@@ -18,6 +19,7 @@ import {SharedService} from './members/shared-service';
     BrowserModule,
     AppRoutingModule,
     MembersModule,
+    LandingModule,
     UiModule,
     NiComponentsModule
   ],
