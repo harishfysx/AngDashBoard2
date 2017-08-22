@@ -8,6 +8,7 @@ import {NgForm} from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
   studentFound = false;
+  message = 'result';
   years = [
     {value: '2017', viewValue: '2017'},
     {value: '2016', viewValue: '2016'},

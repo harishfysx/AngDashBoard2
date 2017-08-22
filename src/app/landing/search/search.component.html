@@ -39,8 +39,11 @@
       </div>
     </form>
       <div class="col offset-md-2 col-md-8 top-buffer">
-        <div [hidden]="studentFound"><ni-card [title]="'Result'" class="mb-0"></ni-card> </div>
-        <div [hidden]="!studentFound"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Change a few things up <a href="#">and try submitting again</a></ni-alert></div>
+        <div [ngSwitch]="message">
+          <div *ngSwitchCase="'result'"><ni-card [title]="'Result'" class="mb-0"></ni-card> </div>
+          <div *ngSwitchCase="'notFound'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Change a few things up <a href="#">and try submitting again</a></ni-alert></div>
+         <div *ngSwitchDefault><ni-alert [color]="'warning'"><strong>Warning!</strong> Better check yourself, you're <a href="#">not looking too good</a></ni-alert></div>
+        </div>
       </div>
 
 
