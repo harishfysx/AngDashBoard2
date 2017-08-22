@@ -29,10 +29,20 @@
         </md-option>
       </md-select>
     </div>
-    <div class="top-buffer">
-      <button class="btn btn-primary">Search</button>
-    </div>
+      <div class="row top-buffer">
+        <div class="col offset-md-5 col-md-2 ">
+          <md-input-container>
+            <input mdInput placeholder="Hall Ticket Number" name="ticket" ngModel required #ticket="ngModel">
+          </md-input-container>
+          <button md-raised-button color="primary" [disabled]="!f.valid">Search</button>
+        </div>
+      </div>
     </form>
+      <div class="col offset-md-2 col-md-8 top-buffer">
+        <div [hidden]="studentFound"><ni-card [title]="'Result'" class="mb-0"></ni-card> </div>
+        <div [hidden]="!studentFound"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Change a few things up <a href="#">and try submitting again</a></ni-alert></div>
+      </div>
+
 
   </div>
 </div>

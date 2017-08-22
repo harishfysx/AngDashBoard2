@@ -7,12 +7,14 @@ import {MaterialModule} from '@angular/material';
 import {AgmCoreModule} from '@agm/core';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule} from '@angular/forms';
+import {NiComponentsModule} from '../ni-components/ni-components.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    NiComponentsModule,
     MaterialModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAU9f7luK3J31nurL-Io3taRKF7w9BItQE'

@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  studentFound = false;
   years = [
     {value: '2017', viewValue: '2017'},
     {value: '2016', viewValue: '2016'},
@@ -36,5 +37,6 @@ export class SearchComponent implements OnInit {
   onSubmit(f: NgForm) {
     console.log(f.value);  // { first: '', last: '' }
     console.log(f.valid);  // false
+    this.studentFound = !this.studentFound;
   }
 }
