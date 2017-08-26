@@ -9,7 +9,7 @@ export class ColorDirective implements OnInit {
   private defaultColor: string;
   private hoveredColor: string;
 
-  constructor( ){}
+  constructor( ) { }
 
   ngOnInit() {
     this.defaultColor = (typeof this.color === 'string') ? this.color : this.color[0];

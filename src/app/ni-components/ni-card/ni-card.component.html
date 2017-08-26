@@ -19,14 +19,14 @@
    'color': customColor
   }"
 >
-  <h3
-    class="card-header h5"
+  <p
+    class="card-header-left h5"
     *ngIf="title"
     [ngClass]="{
       'text-right': align === 'right',
       'text-center': align === 'center'
     }"
-  >{{title}}</h3>
+  >{{title}}  </p>
 
   <div
     class="card-content"

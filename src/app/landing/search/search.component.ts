@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {ResultService} from '../../shared/services/result.service';
+import {AppError} from '../../shared/errors/app.error';
+import {NotFoundError} from '../../shared/errors/not.found.error';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +11,8 @@ import {NgForm} from '@angular/forms';
 })
 export class SearchComponent implements OnInit {
   studentFound = false;
-  message = 'result';
+  message;
+  student: any;
   years = [
     {value: '2017', viewValue: '2017'},
     {value: '2016', viewValue: '2016'},
@@ -31,13 +35,38 @@ export class SearchComponent implements OnInit {
     {value: 's', viewValue: 'Supplementary'}
   ];
 
-  constructor() { }
+  constructor(private resultService: ResultService) { }
 
   ngOnInit() {
   }
   onSubmit(f: NgForm) {
-    console.log(f.value);  // { first: '', last: '' }
-    console.log(f.valid);  // false
+    // console.log(f.value.ticket);  // { first: '', last: '' }
+    // console.log(f.valid);  // false
     this.studentFound = !this.studentFound;
+    this.message = 'result';
+    this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
+      if (resp.json() != null) {
+        this.student = resp.json();
+        this.message = 'result';
+        // console.log(this.student);
+      }else {
+        this.message = 'notFound';
+      }
+      },
+      (error: AppError) => {
+        if (error instanceof  NotFoundError) {
+          console.log('its not found error');
+        }else {
+          throw error ;
+        }
+    });
   }
+  // getClasses
+  getColor(outome) {
+    if (outome === 'FAIL') {
+      return '#e24d4d';
+    }
+    return '#64B5F6';
+  }
+
 }
