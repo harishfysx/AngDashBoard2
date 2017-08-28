@@ -8,7 +8,7 @@ import {AgmCoreModule} from '@agm/core';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule} from '@angular/forms';
 import {NiComponentsModule} from '../ni-components/ni-components.module';
-import {StyleResultDirective} from './directives/style-result.directive';
+import {PageSignUp1Component} from './sign-up/sign-up-1.component';
 
 
 @NgModule({
@@ -22,6 +22,6 @@ import {StyleResultDirective} from './directives/style-result.directive';
     }),
     LandingRoutingModule
   ],
-  declarations: [LandingComponent, SearchComponent, NavBarComponent, StyleResultDirective]
+  declarations: [LandingComponent, SearchComponent, NavBarComponent, PageSignUp1Component]
 })
 export class LandingModule { }

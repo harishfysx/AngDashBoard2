@@ -8,7 +8,7 @@ import {WidgetsComponent} from './widgets/widgets.component';
 
 const routes: Routes = [
   {
-    path: '', component: MembersComponent,   children: [
+      path: '', component: MembersComponent,   children: [
     { path: 'state', component: StateSearchComponent },
     { path: 'state-analytics', component: StateAnalyticsComponent },
     { path: 'widgets', component: WidgetsComponent }
