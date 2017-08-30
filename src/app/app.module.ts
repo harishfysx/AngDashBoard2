@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpModule} from '@angular/http';
 import {ResultService} from './shared/services/result.service';
 import {AppErrorHandler} from './shared/errors/app.error.handler';
+import {AuthService} from './shared/services/auth.service';
 
 
 
@@ -29,7 +30,7 @@ import {AppErrorHandler} from './shared/errors/app.error.handler';
     BrowserAnimationsModule,
     NiComponentsModule
   ],
-  providers: [SharedService, ResultService, { provide: ErrorHandler, useClass: AppErrorHandler }],
+  providers: [SharedService, ResultService, AuthService, { provide: ErrorHandler, useClass: AppErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

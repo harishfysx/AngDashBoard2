@@ -9,6 +9,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule} from '@angular/forms';
 import {NiComponentsModule} from '../ni-components/ni-components.module';
 import {PageSignUp1Component} from './sign-up/sign-up-1.component';
+import {PageSignInComponent} from './sign-in-1/sign-in-1.component';
+import {PageForgotComponent} from './forgot/forgot.component';
 
 
 @NgModule({
@@ -22,6 +24,6 @@ import {PageSignUp1Component} from './sign-up/sign-up-1.component';
     }),
     LandingRoutingModule
   ],
-  declarations: [LandingComponent, SearchComponent, NavBarComponent, PageSignUp1Component]
+  declarations: [LandingComponent, SearchComponent, NavBarComponent, PageSignUp1Component, PageSignInComponent, PageForgotComponent]
 })
 export class LandingModule { }

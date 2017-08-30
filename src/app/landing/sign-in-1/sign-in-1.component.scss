@@ -1,21 +1,15 @@
 @import '../../../assets/sass/variable';
 
-
 :host {
 
 
-
-
   .ni-card {
-
-
     padding-top: 20px;
     margin: 0 auto;
     max-width: 400px;
 
     /deep/ .card-wrap {
       border: 0;
-
     }
     form {
       button {
@@ -25,6 +19,14 @@
         background: rgba(#000,.1);
         margin: $module-rem * 2 (-($module-rem * 2)) (-($module-rem * 2));
         padding: $module-rem $module-rem * 2;
+
+        .divider {
+          border-left: 1px solid rgba(#000,.2);
+          display: inline-block;
+          height: 18px;
+          margin: 0 10px;
+          vertical-align: bottom;
+        }
       }
     }
   }

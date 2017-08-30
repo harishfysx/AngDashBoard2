@@ -1,29 +1,59 @@
 <app-nav-bar></app-nav-bar><!-- /.navbar-->
-<ni-card [title]="'Create your account'" [align]="'center'">
-  <form (ngSubmit)="onSubmit()">
-    <md-input-container>
-      <input mdInput placeholder="Email address" value="">
-    </md-input-container>
+    <ni-card [title]="'Create your account'" [align]="'center'">
+      <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm">
+        <md-input-container>
+          <input
+            mdInput
+            placeholder="Email address"
+            type="email"
+            id="email"
+            name="email"
+            ngModel
+            #email = "ngModel"
+            class="form-control text-center"
+            required
+            email>
+        </md-input-container>
 
-    <md-input-container>
-      <input mdInput placeholder="Password" value="">
-    </md-input-container>
+        <md-input-container>
+          <input
+            mdInput
+            placeholder="Password"
+            type="password"
+            id="password"
+            name="password"
+            ngModel
+            #password="ngModel"
+            class="form-control text-center"
+            required>
+        </md-input-container>
 
-    <md-input-container>
-      <input mdInput placeholder="Confirm Password" value="">
-    </md-input-container>
+        <md-input-container>
+          <input
+            mdInput
+            placeholder="Confirm Password"
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            ngModel
+            #confirmPassword="ngModel"
+            class="form-control text-center"
+            required>
+        </md-input-container>
+        <div *ngIf="(signupForm.value.password !== signupForm.value.confirmPassword) && (signupForm.controls.confirmPassword.touched)" >Passwords do not match!</div>
+        <div class="text-left mb-module">
+          <md-checkbox>
+            I have read and agree to the terms of service.
+          </md-checkbox>
+        </div>
 
-    <div class="text-left mb-module">
-      <md-checkbox>
-        I have read and agree to the terms of service.
-      </md-checkbox>
-    </div>
+        <button md-raised-button color="primary" type="submit">Sign Up</button>
 
-    <button md-raised-button color="primary" type="submit">Sign Up</button>
+        <div class="additional-info">
+          Already have an account?
+          <a routerLink="/landing/signin">Login</a>
+        </div>
+      </form>
+    </ni-card>
 
-    <div class="additional-info">
-      Already have an account?
-      <a href="extra-layout/sign-in">Sign in</a>
-    </div>
-  </form>
-</ni-card>
+

@@ -5,10 +5,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {AppError} from '../errors/app.error';
 import {NotFoundError} from '../errors/not.found.error';
+import {awsBieApiUrl} from '../../../../config/config';
+
 
 @Injectable()
 export class ResultService {
-  private studentsUrl = 'https://5bv2ejavc3.execute-api.us-east-2.amazonaws.com/BIE_DEV/students';
+  private studentsUrl = awsBieApiUrl;
 
   constructor(private http: Http) { }
   getStudent (hallTicket: number) {
