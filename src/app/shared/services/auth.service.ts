@@ -6,9 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito-identity-js';
 import { User } from './user.model';
+import { UserPoolId } from '../../../../config/config';
+import { ClientId } from '../../../../config/config';
 const poolData = {
-  UserPoolId : 'us-east-2_O3Jbhky6o', // Your user pool id here
-  ClientId : '7254k8tjo9idduufoc3tgcepae' // Your client id here
+  UserPoolId : UserPoolId, // Your user pool id here
+  ClientId : ClientId // Your client id here
 };
 
 const userPool = new CognitoUserPool(poolData);
