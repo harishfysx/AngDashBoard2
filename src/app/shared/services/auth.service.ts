@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
-
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito-identity-js';
 import { User } from './user.model';
 import { UserPoolId } from '../../../../config/config';
 import { ClientId } from '../../../../config/config';
+import {observable} from 'rxjs/symbol/observable';
+import {Observer} from 'rxjs/Observer';
 const poolData = {
   UserPoolId : UserPoolId, // Your user pool id here
   ClientId : ClientId // Your client id here
@@ -22,6 +23,37 @@ export class AuthService {
   authStatusChanged = new Subject<boolean>();
   registeredUser: CognitoUser;
   constructor(private router: Router) {}
+  // signUp Observable
+  signObs = (username: string, email: string, password: string) => {
+    return Observable.create(observer => {
+      this.authIsLoading.next(true);
+      const user: User = {
+        username: username,
+        email: email,
+        password: password
+      };
+      const attributeList: CognitoUserAttribute[] = [];
+      const emailAttribute = {
+        Name: 'email',
+        Value: user.email
+      };
+      attributeList.push(new CognitoUserAttribute(emailAttribute));
+      userPool.signUp(user.username, user.password, attributeList, null, (err, result) => {
+        if (err) {
+          // console.log(err);
+          this.authDidFail.next(true);
+          this.authIsLoading.next(false);
+          observer.error('something went wroing');
+        }
+        this.authDidFail.next(false);
+        this.authIsLoading.next(false);
+        this.registeredUser = result.user;
+        observer.next('user registerd');
+        // this.router.navigate(['/landing/signin']);
+      });
+    });
+  }
+  // signUp method
   signUp(username: string, email: string, password: string): void {
     this.authIsLoading.next(true);
     const user: User = {
@@ -34,27 +66,18 @@ export class AuthService {
       Name: 'email',
       Value: user.email
     };
-    const genderAttribute = {
-      Name: 'gender',
-      Value: 'male'
-    };
-    const nameAttribute = {
-      Name: 'name',
-      Value: 'harish'
-    };
+
     attributeList.push(new CognitoUserAttribute(emailAttribute));
-    attributeList.push(new CognitoUserAttribute(genderAttribute));
-    attributeList.push(new CognitoUserAttribute(nameAttribute));
     userPool.signUp(user.username, user.password, attributeList, null, (err, result) => {
       if (err) {
         console.log(err);
         this.authDidFail.next(true);
         this.authIsLoading.next(false);
-        return;
       }
       this.authDidFail.next(false);
       this.authIsLoading.next(false);
       this.registeredUser = result.user;
+      this.router.navigate(['/landing/signin']);
     });
     return;
   }
@@ -75,7 +98,7 @@ export class AuthService {
       this.authDidFail.next(false);
       this.authIsLoading.next(false);
       console.log(result);
-      this.router.navigate(['/']);
+      this.router.navigate(['/landing/signin']);
     });
   }
   signIn(username: string, password: string): void {
