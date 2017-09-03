@@ -11,6 +11,7 @@ import {NiComponentsModule} from '../ni-components/ni-components.module';
 import {PageSignUp1Component} from './sign-up/sign-up-1.component';
 import {PageSignInComponent} from './sign-in-1/sign-in-1.component';
 import {PageForgotComponent} from './forgot/forgot.component';
+import {PageConfirmComponent} from './confirm/confirm.component';
 
 
 @NgModule({
@@ -24,6 +25,12 @@ import {PageForgotComponent} from './forgot/forgot.component';
     }),
     LandingRoutingModule
   ],
-  declarations: [LandingComponent, SearchComponent, NavBarComponent, PageSignUp1Component, PageSignInComponent, PageForgotComponent]
+  declarations: [LandingComponent,
+    SearchComponent,
+    NavBarComponent,
+    PageSignUp1Component,
+    PageSignInComponent,
+    PageForgotComponent,
+    PageConfirmComponent]
 })
 export class LandingModule { }

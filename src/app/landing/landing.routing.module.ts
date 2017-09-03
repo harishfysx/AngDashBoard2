@@ -5,6 +5,7 @@ import {LandingComponent} from './landing.component';
 import {PageSignUp1Component} from './sign-up/sign-up-1.component';
 import {PageSignInComponent} from './sign-in-1/sign-in-1.component';
 import {PageForgotComponent} from './forgot/forgot.component';
+import {PageConfirmComponent} from './confirm/confirm.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
       {path: 'signup', component: PageSignUp1Component},
       {path: 'signin', component: PageSignInComponent},
       {path: 'forget', component: PageForgotComponent},
+      {path: 'confirm/:registeredUserEmail', component: PageConfirmComponent},
         { path: '**', component: SearchComponent }
     ] }
 ];

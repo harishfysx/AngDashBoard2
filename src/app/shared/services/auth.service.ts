@@ -7,8 +7,6 @@ import {CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito
 import { User } from './user.model';
 import { UserPoolId } from '../../../../config/config';
 import { ClientId } from '../../../../config/config';
-import {observable} from 'rxjs/symbol/observable';
-import {Observer} from 'rxjs/Observer';
 const poolData = {
   UserPoolId : UserPoolId, // Your user pool id here
   ClientId : ClientId // Your client id here
@@ -24,7 +22,7 @@ export class AuthService {
   registeredUser: CognitoUser;
   constructor(private router: Router) {}
   // signUp Observable
-  signObs = (username: string, email: string, password: string) => {
+  signObs = (username: string, email: string, password: string): Observable<User> => {
     return Observable.create(observer => {
       this.authIsLoading.next(true);
       const user: User = {
@@ -43,43 +41,14 @@ export class AuthService {
           // console.log(err);
           this.authDidFail.next(true);
           this.authIsLoading.next(false);
-          observer.error('something went wroing');
+          observer.error(err);
         }
         this.authDidFail.next(false);
         this.authIsLoading.next(false);
         this.registeredUser = result.user;
-        observer.next('user registerd');
-        // this.router.navigate(['/landing/signin']);
+        observer.next(user);
       });
     });
-  }
-  // signUp method
-  signUp(username: string, email: string, password: string): void {
-    this.authIsLoading.next(true);
-    const user: User = {
-      username: username,
-      email: email,
-      password: password
-    };
-    const attributeList: CognitoUserAttribute[] = [];
-    const emailAttribute = {
-      Name: 'email',
-      Value: user.email
-    };
-
-    attributeList.push(new CognitoUserAttribute(emailAttribute));
-    userPool.signUp(user.username, user.password, attributeList, null, (err, result) => {
-      if (err) {
-        console.log(err);
-        this.authDidFail.next(true);
-        this.authIsLoading.next(false);
-      }
-      this.authDidFail.next(false);
-      this.authIsLoading.next(false);
-      this.registeredUser = result.user;
-      this.router.navigate(['/landing/signin']);
-    });
-    return;
   }
   confirmUser(username: string, code: string) {
     this.authIsLoading.next(false);
