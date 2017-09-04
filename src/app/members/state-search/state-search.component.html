@@ -1,103 +1,84 @@
-<ni-card [title]="'Headers'">
-  <p>All HTML headings, <code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code> are available. <code>.h1</code> through <code>.h6</code> classes are also available, for when you want to match the font styling of a heading but cannot use the associated HTML element.</p>
-  <div class="row">
-    <div class="col-md-6">
-      <h1>Heading 1</h1>
-      <h2>Heading 2</h2>
-      <h3>Heading 3</h3>
-      <h4>Heading 4</h4>
-      <h5>Heading 5</h5>
-      <h6>Heading 6</h6>
+<div class="container">
+  <div class="starter-template">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div id="selectBlock">
+        <md-select placeholder="Year" style="padding-right: 30px"  name="year" ngModel required #year="ngModel">
+          <md-option *ngFor="let year of years" [value]="year.value">
+            {{ year.viewValue }}
+          </md-option>
+        </md-select>
+
+        <md-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
+          <md-option *ngFor="let state of states" [value]="state.value">
+            {{ state.viewValue }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
+          <md-option *ngFor="let category of categories" [value]="category.value">
+            {{ category.viewValue }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
+          <md-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
+            {{ studyYear.viewValue }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
+          <md-option *ngFor="let exam of exams" [value]="exam.value">
+            {{ exam.viewValue }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="row top-buffer">
+        <div class="col offset-md-5 col-md-2 ">
+          <md-input-container>
+            <input mdInput placeholder="Hall Ticket Number"  maxlength="10" style="text-align: center" name="ticket" ngModel required #ticket="ngModel">
+          </md-input-container>
+          <button md-raised-button color="primary" >Search</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="col offset-md-2 col-md-8 top-buffer">
+      <div [ngSwitch]="message">
+        <div *ngSwitchCase="'result'"><ni-card
+          title="{{student.stdntname}}"
+          class="mb-0">
+          <div class="flex-xl-first mb-4 mb-md-0">
+            <div class="row">
+              <div class="col-md-4">
+                <h5 class="mt-0">ID: {{student.ticket}}</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="mt-0">Total: {{student.grandtotal}}</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="mt-0" > Grade: <span  [ngStyle]="{'color': getColor(student.grandresult)}"> {{student.grandresult}}</span></h5>
+              </div>
+            </div>
+            <div class="table-responsive mb-3">
+              <table class="table table-sm">
+                <tbody>
+                <tr *ngFor="let subject of student.subjects;">
+                  <td style= "padding-left: 30px">{{subject.subjectName}}</td>
+                  <td  class="text-right">
+                    <ni-badge [color]="subject.outcome === 'F' ? 'danger' : 'success'"  [borderRadius]="false">{{subject.marksGained}}</ni-badge>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <button ni-button afterIcon="sli-printer" type="success" outline="true"></button>
+          </div>
+        </ni-card> </div>
+        <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
+        <div *ngSwitchCase="'somethingWrong'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Some thing went wrong please try after some time</ni-alert></div>
+      </div>
     </div>
-    <div class="col-md-6">
-      <h1 class="text-uppercase">Heading 1</h1>
-      <h2 class="text-uppercase">Heading 2</h2>
-      <h3 class="text-uppercase">Heading 3</h3>
-      <h4 class="text-uppercase">Heading 4</h4>
-      <h5 class="text-uppercase">Heading 5</h5>
-      <h6 class="text-uppercase">Heading 6</h6>
-    </div>
+
+
   </div>
-</ni-card>
+</div>
 
-<ni-card [title]="'Text style'">
-  <p><code>.mark</code> and <code>.small</code> classes are also available to apply the same styles as <code>&lt;mark&gt;</code> and <code>&lt;small&gt;</code> while avoiding any unwanted semantic implications that the tags would bring.</p>
-  <p>You can use the mark tag to <mark>highlight</mark> text.</p>
-  <p><del>This line of text is meant to be treated as deleted text.</del></p>
-  <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
-  <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
-  <p><u>This line of text will render as underlined</u></p>
-  <p><small>This line of text is meant to be treated as fine print.</small></p>
-  <p><strong>This line rendered as bold text.</strong></p>
-  <p><em>This line rendered as italicized text.</em></p>
-</ni-card>
 
-<ni-card [title]="'Blockquotes'">
-  <p>For quoting blocks of content from another source within your document. Wrap <code>&lt;blockquote class="blockquote"&gt;</code> around any <abbr title="HyperText Markup Language">HTML</abbr> as the quote.</p>
-  <blockquote class="blockquote">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-  </blockquote>
 
-  <blockquote class="blockquote blockquote-reverse">
-    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-  </blockquote>
-</ni-card>
-
-<ni-card [title]="'Lists'">
-  <div class="row">
-    <div class="col-md-6">
-      <ul>
-        <li>Lorem ipsum dolor sit amet</li>
-        <li>Consectetur adipiscing elit</li>
-        <li>Integer molestie lorem at massa</li>
-        <li>Facilisis in pretium nisl aliquet</li>
-        <li>Nulla volutpat aliquam velit
-          <ul>
-            <li>Phasellus iaculis neque</li>
-            <li>Purus sodales ultricies</li>
-            <li>Vestibulum laoreet porttitor sem</li>
-            <li>Ac tristique libero volutpat at</li>
-          </ul>
-        </li>
-        <li>Faucibus porta lacus fringilla vel</li>
-        <li>Aenean sit amet erat nunc</li>
-        <li>Eget porttitor lorem</li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <ol>
-        <li>Lorem ipsum dolor sit amet</li>
-        <li>Consectetur adipiscing elit</li>
-        <li>Integer molestie lorem at massa</li>
-        <li>Facilisis in pretium nisl aliquet</li>
-        <li>Nulla volutpat aliquam velit
-          <ol>
-            <li>Phasellus iaculis neque</li>
-            <li>Purus sodales ultricies</li>
-            <li>Vestibulum laoreet porttitor sem</li>
-            <li>Ac tristique libero volutpat at</li>
-          </ol>
-        </li>
-        <li>Faucibus porta lacus fringilla vel</li>
-        <li>Aenean sit amet erat nunc</li>
-        <li>Eget porttitor lorem</li>
-      </ol>
-    </div>
-  </div>
-</ni-card>
-
-<ni-card [title]="'Text alignment'">
-  <p>Easily realign text to components with text alignment classes.</p>
-  <p class="text-left">Left aligned text on all viewport sizes.</p>
-  <p class="text-center">Center aligned text on all viewport sizes.</p>
-  <p class="text-right">Right aligned text on all viewport sizes.</p>
-</ni-card>
-
-<ni-card [title]="'Text transform'" class="mb-0">
-  <p>Transform text in components with text capitalization classes.</p>
-  <p class="text-lowercase">Lowercased text.</p>
-  <p class="text-uppercase">Uppercased text.</p>
-  <p class="text-capitalize">CapiTaliZed text.</p>
-</ni-card>

@@ -12,10 +12,13 @@ import {PageSignUp1Component} from './sign-up/sign-up-1.component';
 import {PageSignInComponent} from './sign-in-1/sign-in-1.component';
 import {PageForgotComponent} from './forgot/forgot.component';
 import {PageConfirmComponent} from './confirm/confirm.component';
+import {UiModule} from '../ui/ui.module';
+
 
 
 @NgModule({
   imports: [
+    UiModule,
     CommonModule,
     FormsModule,
     NiComponentsModule,
@@ -31,6 +34,7 @@ import {PageConfirmComponent} from './confirm/confirm.component';
     PageSignUp1Component,
     PageSignInComponent,
     PageForgotComponent,
-    PageConfirmComponent]
+    PageConfirmComponent],
+  exports: []
 })
 export class LandingModule { }

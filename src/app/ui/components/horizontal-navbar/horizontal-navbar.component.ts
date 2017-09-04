@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {AuthService} from '../../../shared/services/auth.service';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   moduleId: module.id,
@@ -12,11 +13,15 @@ import {Router} from '@angular/router';
     '[class.show-overlay]': 'showOverlay'
   }
 })
-export class HorizontalNavbarComponent implements OnInit {
+export class HorizontalNavbarComponent implements OnInit , OnDestroy{
   @Input() title: string;
   @Input() openedSidebar: boolean;
   @Output() sidebarState = new EventEmitter();
   showOverlay: boolean;
+  // IRART variables
+   logOutSubscription: Subscription;
+   loggedInUser: string;
+   isLoggedIn: boolean;
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -24,7 +29,16 @@ export class HorizontalNavbarComponent implements OnInit {
     this.showOverlay = false;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const isAuthenticated = this.authService.isAuthenticated().subscribe((value) => {
+      this.isLoggedIn = value;
+    });
+    if (this.isLoggedIn) {
+      const currentUser = this.authService.getAuthenticatedUser().getUsername();
+      this.loggedInUser = currentUser
+      console.log(currentUser);
+    }
+  }
 
   open(event) {
     const clickedComponent = event.target.closest('.nav-item');
@@ -61,10 +75,15 @@ export class HorizontalNavbarComponent implements OnInit {
   }
   // Implement LogOut
   onLogOut () {
-   this.authService.logOut().subscribe({
+   this.logOutSubscription = this.authService.logOut().subscribe({
      complete : () => {
        this.router.navigate(['/landing/search']);
      }
    });
   }
+  // Implement OnDestroy
+  ngOnDestroy(): void {
+    this.logOutSubscription.unsubscribe(); // un-subscribe  from logout subscription
+  }
+
 }

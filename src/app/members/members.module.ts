@@ -12,6 +12,7 @@ import {MaterialModule} from '@angular/material';
 import {ChartsModule} from 'ng2-charts';
 import {AmChartsModule} from '@amcharts/amcharts3-angular';
 import {AgmCoreModule} from '@agm/core';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {AgmCoreModule} from '@agm/core';
   ],
   imports: [UiModule,
     CommonModule,
+    FormsModule,
     ChartsModule,
     AmChartsModule,
     AgmCoreModule.forRoot({
@@ -29,6 +31,8 @@ import {AgmCoreModule} from '@agm/core';
     }),
     MaterialModule,
     MembersRoutingModule,
-    NiComponentsModule]
+    NiComponentsModule
+    ],
+  providers: []
 })
 export class MembersModule {}

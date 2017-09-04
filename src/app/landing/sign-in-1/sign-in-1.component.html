@@ -34,8 +34,10 @@
       </md-checkbox>
     </div>
 
-    <button md-raised-button color="primary" type="submit">Sign In</button>
-
+    <button md-raised-button disabled="{{signInForm.invalid}}" color="primary"  type="submit">Sign In</button>
+      <div class="top-buffer" *ngIf="invalidLogin" >
+          <ni-alert  [close]="true" [color]="'danger'"><strong>Oh snap!</strong> {{invalidMessage}}</ni-alert>
+      </div>
     <div class="additional-info">
       <a routerLink="/landing/signup">Sign up</a>
       <span class="divider"></span>

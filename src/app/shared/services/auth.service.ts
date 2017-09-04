@@ -80,14 +80,13 @@ export class AuthService {
         onFailure: function(err) {
           __this.authDidFail.next(true);
           __this.authIsLoading.next(false);
-          console.log(err);
           observer.error(err);
         },
 
       });
     });
   }
-  getAuthenticatedUser = () => {
+  getAuthenticatedUser = (): CognitoUser => {
     return userPool.getCurrentUser();
   }
   logOut = () => {
@@ -113,8 +112,7 @@ export class AuthService {
               observer.next(false);
             }
           }
-        })
-        observer.next(false);
+        });
       }
       observer.complete();
     });

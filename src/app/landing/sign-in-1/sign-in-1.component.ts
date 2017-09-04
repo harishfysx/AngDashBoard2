@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, Validators, FormControl, NgForm} from '@angular/forms';
+import { NgForm} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {CognitoUserSession} from 'amazon-cognito-identity-js';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,19 +11,23 @@ import {CognitoUserSession} from 'amazon-cognito-identity-js';
   styleUrls: ['./sign-in-1.component.scss']
 })
 export class PageSignInComponent implements OnInit {
+  loginSubscription: Subscription; // SignIn subscription,
+  invalidLogin = false; // Boolean to show error on UI
+  invalidMessage: string; // String to show error message on UI
   constructor(private router: Router, private  authService: AuthService) {}
 
   ngOnInit() { }
 
   onSubmit(f: NgForm) {
+    this.invalidLogin = false;
+    this.invalidMessage = '';
     const email = f.value.email;
     const password = f.value.password;
-    // console.log(email, password);
-     this.authService.signIn(email, password).subscribe((value: CognitoUserSession) => {
+    this.loginSubscription = this.authService.signIn(email, password).subscribe((value: CognitoUserSession) => {
        this.router.navigate(['/members']);
      },  (error) => {
-       console.log(error);
+       this.invalidLogin = true;
+       this.invalidMessage = error.message;
     });
-
   }
 }
