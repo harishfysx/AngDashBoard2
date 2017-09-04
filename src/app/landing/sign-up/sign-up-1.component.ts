@@ -22,16 +22,16 @@ signObsSubscription: Subscription;
     const usrName = f.value.userName;
     const email = f.value.email;
     const password = f.value.password;
-    this.signObsSubscription = this.authService.signObs(usrName, email, password).
+    this.signObsSubscription = this.authService.signUp(usrName, email, password).
       subscribe((value: User) => {
       console.log(value);
-      this.router.navigate(['/landing/confirm',value.email]);
+      this.router.navigate(['/landing/confirm', value.email]);
     }, (error) => {
       console.log(error);
     });
   }
 
   ngOnDestroy(): void {
-    this.signObsSubscription.unsubscribe();
+    // this.signObsSubscription.unsubscribe();
   }
 }

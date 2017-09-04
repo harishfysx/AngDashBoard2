@@ -3,7 +3,12 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito-identity-js';
+import {
+  CognitoUser,
+  CognitoUserAttribute,
+  CognitoUserPool,
+  AuthenticationDetails, CognitoUserSession
+} from 'amazon-cognito-identity-js';
 import { User } from './user.model';
 import { UserPoolId } from '../../../../config/config';
 import { ClientId } from '../../../../config/config';
@@ -22,7 +27,7 @@ export class AuthService {
   registeredUser: CognitoUser;
   constructor(private router: Router) {}
   // signUp Observable
-  signObs = (username: string, email: string, password: string): Observable<User> => {
+  signUp = (username: string, email: string, password: string): Observable<User> => {
     return Observable.create(observer => {
       this.authIsLoading.next(true);
       const user: User = {
@@ -50,39 +55,47 @@ export class AuthService {
       });
     });
   }
-  confirmUser(username: string, code: string) {
-    this.authIsLoading.next(false);
-    const userData = {
-      Username: username,
-      Pool: userPool
-    };
-    const cognitUser = new CognitoUser(userData);
-    cognitUser.confirmRegistration(code, true, (err, result) => {
-      if (err) {
-        console.log(err);
-        this.authDidFail.next(true);
-        this.authIsLoading.next(false);
-        return;
-      }
-      this.authDidFail.next(false);
-      this.authIsLoading.next(false);
-      console.log(result);
-      this.router.navigate(['/landing/signin']);
+  // SignInObs
+  signIn = (username: string, password: string): Observable<CognitoUserSession> => {
+    return Observable.create(observer => {
+      this.authIsLoading.next(true);
+      const authenticationData = {
+        Username: username,
+        Password: password
+      };
+      const authenticationDetails = new AuthenticationDetails(authenticationData);
+      const userData = {
+        Username : username,
+        Pool : userPool
+      };
+      const cognitoUser = new CognitoUser(userData);
+      const __this = this;
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result: CognitoUserSession) {
+          __this.authStatusChanged.next(true);
+          __this.authDidFail.next(false);
+          __this.authIsLoading.next(false);
+          observer.next(result);
+        },
+        onFailure: function(err) {
+          __this.authDidFail.next(true);
+          __this.authIsLoading.next(false);
+          console.log(err);
+          observer.error(err);
+        },
+
+      });
     });
   }
-  signIn(username: string, password: string): void {
-    this.authIsLoading.next(true);
-    const authData = {
-      Username: username,
-      Password: password
-    };
-    this.authStatusChanged.next(true);
-    return;
+  getAuthenticatedUser = () => {
+    return userPool.getCurrentUser();
   }
-  getAuthenticatedUser() {
-  }
-  logout() {
-    this.authStatusChanged.next(false);
+  logOut = () => {
+      return Observable.create((observer) => {
+        this.getAuthenticatedUser().signOut();
+        this.authStatusChanged.next(false);
+        observer.complete();
+      });
   }
   isAuthenticated(): Observable<boolean> {
     const user = this.getAuthenticatedUser();
@@ -90,6 +103,17 @@ export class AuthService {
       if (!user) {
         observer.next(false);
       } else {
+        user.getSession((err, session) => {
+          if (err) {
+            observer.next(false);
+          } else {
+            if (session.isValid()) {
+              observer.next(true);
+            }else {
+              observer.next(false);
+            }
+          }
+        })
         observer.next(false);
       }
       observer.complete();

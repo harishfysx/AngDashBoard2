@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {AuthService} from '../../../shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +18,8 @@ export class HorizontalNavbarComponent implements OnInit {
   @Output() sidebarState = new EventEmitter();
   showOverlay: boolean;
 
-  constructor() {
+  constructor(private authService: AuthService,
+              private router: Router) {
     this.openedSidebar = false;
     this.showOverlay = false;
   }
@@ -34,7 +37,7 @@ export class HorizontalNavbarComponent implements OnInit {
     }
     clickedComponent.classList.add('opened');
 
-    //Add class 'show-overlay'
+    // Add class 'show-overlay'
     this.showOverlay = true;
   }
 
@@ -48,12 +51,20 @@ export class HorizontalNavbarComponent implements OnInit {
       items[i].classList.remove('opened');
     }
 
-    //Remove class 'show-overlay'
+    // Remove class 'show-overlay'
     this.showOverlay = false;
   }
 
   openSidebar() {
     this.openedSidebar = !this.openedSidebar;
     this.sidebarState.emit();
+  }
+  // Implement LogOut
+  onLogOut () {
+   this.authService.logOut().subscribe({
+     complete : () => {
+       this.router.navigate(['/landing/search']);
+     }
+   });
   }
 }
