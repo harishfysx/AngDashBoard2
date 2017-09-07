@@ -10,20 +10,38 @@ export const MENU: any = [
       bg: '#ea8080',
       color: 'rgba(0,0,0,.87)'
     },
-    routing: '/members/state',
-    badge: {
-      text: 'New',
-      color: '#fff',
-      bg: '#E57373'
-    },
+    routing: '/members/state-search',
     sub: [
       {
         title: 'Search',
-        routing: '/members/state'
+        routing: '/members/state-search'
       },
       {
         title: 'Analytics',
         routing: '/members/state-analytics'
+      }
+    ]
+  },
+  {
+    title: 'College',
+    icon: {
+      class: 'fa fa-table',
+      bg: '#FFE082',
+      color: 'rgba(0,0,0,.87)'
+    },
+    routing: '/members/college-search',
+    sub: [
+      {
+        title: 'Collections',
+        routing: '/members/college-collections'
+      },
+      {
+        title: 'Search',
+        routing: '/members/college-search'
+      },
+      {
+        title: 'Analytics',
+        routing: '/members/college-analytics'
       }
     ]
   },

@@ -8,14 +8,15 @@ import { NiButtonComponent }     from './ni-button/ni-button.component';
 import { NiCardComponent }       from './ni-card/ni-card.component';
 import { NiFileComponent }       from './ni-file/ni-file.component';
 import { NiHTimelineComponent }  from './ni-h-timeline/ni-h-timeline.component';
-
+import {RouterModule } from '@angular/router';
 import { ColorDirective }        from './directives/color/color.directive';
 import { BgDirective }           from './directives/bg/bg.directive';
 import { GradientDirective }     from './directives/gradient/gradient.directive';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [
     NiAlertComponent,

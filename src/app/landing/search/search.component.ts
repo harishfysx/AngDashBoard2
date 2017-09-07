@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   studentFound = false;
   message;
   student: any;
+  resultLoading = false;
   years = [
     {value: '2017', viewValue: '2017'},
     {value: '2016', viewValue: '2016'},
@@ -43,23 +44,26 @@ export class SearchComponent implements OnInit {
     // console.log(f.value.ticket);  // { first: '', last: '' }
     // console.log(f.valid);  // false
     this.studentFound = !this.studentFound;
-    this.message = 'result';
+    this.resultLoading = true;
+    // this.message = 'result';
     this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
       if (resp.json() != null) {
         this.student = resp.json();
         this.message = 'result';
-        // console.log(this.student);
       }else {
+        this.resultLoading = false;
         this.message = 'notFound';
       }
       },
       (error: AppError) => {
         if (error instanceof  NotFoundError) {
           console.log('its not found error');
+          this.resultLoading = false;
         }else {
           throw error ;
         }
     });
+    this.resultLoading = false;
   }
   // getClasses
   getColor(outome) {

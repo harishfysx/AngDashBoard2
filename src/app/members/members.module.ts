@@ -13,14 +13,23 @@ import {ChartsModule} from 'ng2-charts';
 import {AmChartsModule} from '@amcharts/amcharts3-angular';
 import {AgmCoreModule} from '@agm/core';
 import {FormsModule} from '@angular/forms';
+import { SmsComponent } from './sms/sms.component';
+import { CollegeSearchComponent } from './college-search/college-search.component';
+import { CollegeAnalyticsComponent } from './college-analytics/college-analytics.component';
+import { CollegeCollectionsComponent } from './college-collections/college-collections.component';
 
 @NgModule({
   declarations: [
     StateSearchComponent,
     MembersComponent,
     StateAnalyticsComponent,
-    WidgetsComponent
+    WidgetsComponent,
+    SmsComponent,
+    CollegeSearchComponent,
+    CollegeAnalyticsComponent,
+    CollegeCollectionsComponent
   ],
+  entryComponents: [SmsComponent],
   imports: [UiModule,
     CommonModule,
     FormsModule,

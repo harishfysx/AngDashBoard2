@@ -1,3 +1,4 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
 <div class="container">
   <div class="starter-template">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
@@ -40,6 +41,7 @@
     </form>
 
     <div class="col offset-md-2 col-md-8 top-buffer">
+      <md-progress-bar *ngIf="resultLoading" mode="indeterminate"></md-progress-bar>
       <div [ngSwitch]="message">
         <div *ngSwitchCase="'result'"><ni-card
           title="{{student.stdntname}}"
@@ -68,7 +70,7 @@
                 </tbody>
               </table>
             </div>
-            <button ni-button afterIcon="sli-printer" type="success" outline="true"></button>
+            <button ni-button (click)="openSmsDialogue()" afterIcon="sli-printer" type="success" outline="true"></button>
           </div>
         </ni-card> </div>
         <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
