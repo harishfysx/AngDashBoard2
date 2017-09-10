@@ -17,6 +17,7 @@ import { SmsComponent } from './sms/sms.component';
 import { CollegeSearchComponent } from './college-search/college-search.component';
 import { CollegeAnalyticsComponent } from './college-analytics/college-analytics.component';
 import { CollegeCollectionsComponent } from './college-collections/college-collections.component';
+import {MdTableModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CollegeCollectionsComponent } from './college-collections/college-colle
     }),
     MaterialModule,
     MembersRoutingModule,
-    NiComponentsModule
+    NiComponentsModule,
+    MdTableModule
     ],
   providers: []
 })
