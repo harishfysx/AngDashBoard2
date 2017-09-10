@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
 import {ResultService} from '../../shared/services/result.service';
 
 const breadcrumb: any[] = [
@@ -25,40 +21,39 @@ const breadcrumb: any[] = [
 })
 export class CollegeCollectionsComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns = ['ticket', 'stdntname', 'grandtotal', 'grandresult'];
   myData: Array < any > ;
-  dataSource: MyDataSource;
+ dataSource: SampleStudentsDataSource;
 
-  constructor(private http: Http, private resultService: ResultService) {
+  constructor(private resultService: ResultService) {
     this.getData();
   }
   public getData() {
-    this.resultService.getSampleElements()
-      .map(response => response.json())
+    this.resultService.getSampleStudents()
       .subscribe(res => {
         this.myData = res;
-        this.dataSource = new MyDataSource(this.myData);
+        this.dataSource = new SampleStudentsDataSource(this.myData);
       });
   }
   ngOnInit() {
   }
 }
 
-export interface Data {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+
+export interface Student {
+  ticket: number;
+  stdntname: string;
+  grandtotal: string;
+  grandresult: string;
 }
-export class MyDataSource extends DataSource<any> {
-  constructor(private data: Data[]) {
+
+export class SampleStudentsDataSource extends DataSource<any> {
+  constructor(private data: Student[]) {
     super();
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Data[]> {
+  connect(): Observable<Student[]> {
     return Observable.of(this.data);
   }
-
   disconnect() {}
-
 }

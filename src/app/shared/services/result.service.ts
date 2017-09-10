@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {AppError} from '../errors/app.error';
 import {NotFoundError} from '../errors/not.found.error';
@@ -21,7 +22,9 @@ export class ResultService {
 
   getSampleStudents () {
     const url = 'http://172.16.180.122:3000/api/student/sampleStudents'
-    return this.http.get(url).catch(this.errorHanlder);
+    return this.http.get(url)
+      .map(response => response.json())
+      .catch(this.errorHanlder);
   }
   getSampleUsers () {
     const url = this.testEndPointURl + '/sampleusers';
