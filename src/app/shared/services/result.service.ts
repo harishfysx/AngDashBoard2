@@ -10,11 +10,25 @@ import {awsBieApiUrl} from '../../../../config/config';
 
 @Injectable()
 export class ResultService {
-  private studentsUrl = awsBieApiUrl;
+  private studentsUrl = awsBieApiUrl + '/students';
+  private testEndPointURl = awsBieApiUrl + '/testEndPoints';
 
   constructor(private http: Http) { }
   getStudent (hallTicket: number) {
     const url = `${this.studentsUrl}/${hallTicket}`;
+    return this.http.get(url).catch(this.errorHanlder);
+  }
+
+  getSampleStudents () {
+    const url = 'http://172.16.180.122:3000/api/student/sampleStudents'
+    return this.http.get(url).catch(this.errorHanlder);
+  }
+  getSampleUsers () {
+    const url = this.testEndPointURl + '/sampleusers';
+    return this.http.get(url).catch(this.errorHanlder);
+  }
+  getSampleElements () {
+    const url = this.testEndPointURl + '/sampleelements';
     return this.http.get(url).catch(this.errorHanlder);
   }
   private errorHanlder(error: Response) {
