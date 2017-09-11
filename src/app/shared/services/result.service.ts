@@ -28,7 +28,9 @@ export class ResultService {
   }
   getSampleUsers () {
     const url = this.testEndPointURl + '/sampleusers';
-    return this.http.get(url).catch(this.errorHanlder);
+    return this.http.get(url)
+      .map(response => response.json())
+      .catch(this.errorHanlder);
   }
   getSampleElements () {
     const url = this.testEndPointURl + '/sampleelements';

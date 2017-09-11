@@ -23,7 +23,7 @@ export class CollegeCollectionsComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
   displayedColumns = ['ticket', 'stdntname', 'grandtotal', 'grandresult'];
   myData: Array < any > ;
- dataSource: SampleStudentsDataSource;
+  dataSource: SampleStudentsDataSource;
 
   constructor(private resultService: ResultService) {
     this.getData();
