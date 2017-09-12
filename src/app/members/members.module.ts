@@ -17,6 +17,7 @@ import { SmsComponent } from './sms/sms.component';
 import { CollegeSearchComponent } from './college-search/college-search.component';
 import { CollegeAnalyticsComponent } from './college-analytics/college-analytics.component';
 import { CollegeCollectionsComponent } from './college-collections/college-collections.component';
+import {CdkTableModule} from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -41,8 +42,9 @@ import { CollegeCollectionsComponent } from './college-collections/college-colle
     MaterialModule,
     MembersRoutingModule,
     NiComponentsModule,
-    MdTableModule
-    ],
+    MdTableModule,
+    CdkTableModule
+  ],
   providers: []
 })
 export class MembersModule {}
