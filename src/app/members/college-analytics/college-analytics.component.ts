@@ -10,6 +10,8 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
+import {ResultService} from '../../shared/services/result.service';
+
 const breadcrumb: any[] = [
   {
     title: 'College',
@@ -27,15 +29,15 @@ const breadcrumb: any[] = [
 })
 export class CollegeAnalyticsComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
-  displayedColumns = ['select', 'userId', 'userName', 'progress', 'color'];
-  exampleDatabase = new ExampleDatabase();
+  displayedColumns = ['ticket', 'stdntname', 'grandtotal', 'grandresult', 'select'];
+  exampleDatabase = new ExampleDatabase(this.resultService);
   selection = new SelectionModel<string>(true, []);
   dataSource: ExampleDataSource | null;
 
   @ViewChild(MdPaginator) paginator: MdPaginator;
   @ViewChild(MdSort) sort: MdSort;
   @ViewChild('filter') filter: ElementRef;
-  constructor() { }
+  constructor(private resultService: ResultService) {}
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
@@ -52,9 +54,9 @@ export class CollegeAnalyticsComponent implements OnInit {
     if (this.selection.isEmpty()) { return false; }
 
     if (this.filter.nativeElement.value) {
-      return this.selection.selected.length == this.dataSource.renderedData.length;
+      return this.selection.selected.length === this.dataSource.renderedData.length;
     } else {
-      return this.selection.selected.length == this.exampleDatabase.data.length;
+      return this.selection.selected.length === this.exampleDatabase.data.length;
     }
   }
 
@@ -64,56 +66,34 @@ export class CollegeAnalyticsComponent implements OnInit {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else if (this.filter.nativeElement.value) {
-      this.dataSource.renderedData.forEach(data => this.selection.select(data.id));
+      this.dataSource.renderedData.forEach(data => this.selection.select(data.ticket));
     } else {
-      this.exampleDatabase.data.forEach(data => this.selection.select(data.id));
+      this.exampleDatabase.data.forEach(data => this.selection.select(data.ticket));
     }
   }
 }
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
+export interface Student {
+  ticket: string;
+  stdntname: string;
+  grandtotal: string;
+  grandresult: string;
 }
+
 
 /** An example database that the data source uses to retrieve data for the table. */
 export class ExampleDatabase {
   /** Stream that emits whenever the data has been modified. */
-  dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
-  get data(): UserData[] { return this.dataChange.value; }
+  dataChange: BehaviorSubject<Student[]> = new BehaviorSubject<Student[]>([]);
+  get data(): Student[] {
+    return this.dataChange.value;
+ }
 
-  constructor() {
-    // Fill up the database with 100 users.
-    for (let i = 0; i < 100; i++) { this.addUser(); }
-  }
-
-  /** Adds a new user to the database. */
-  addUser() {
-    const copiedData = this.data.slice();
-    copiedData.push(this.createNewUser());
-    this.dataChange.next(copiedData);
-  }
-
-  /** Builds and returns a new User. */
-  private createNewUser() {
-    const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-    return {
-      id: (this.data.length + 1).toString(),
-      name: name,
-      progress: Math.round(Math.random() * 100).toString(),
-      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-    };
+  constructor(private resultService: ResultService) {
+    this.resultService.getSampleStudents()
+      .subscribe((res) => {
+      this.dataChange.next(res);
+    });
   }
 }
 
@@ -129,8 +109,8 @@ export class ExampleDataSource extends DataSource<any> {
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) { this._filterChange.next(filter); }
 
-  filteredData: UserData[] = [];
-  renderedData: UserData[] = [];
+  filteredData: Student[] = [];
+  renderedData: Student[] = [];
 
   constructor(private _exampleDatabase: ExampleDatabase,
               private _paginator: MdPaginator,
@@ -141,7 +121,7 @@ export class ExampleDataSource extends DataSource<any> {
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<UserData[]> {
+  connect(): Observable<Student[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
@@ -152,8 +132,8 @@ export class ExampleDataSource extends DataSource<any> {
 
     return Observable.merge(...displayDataChanges).map(() => {
       // Filter data
-      this.filteredData = this._exampleDatabase.data.slice().filter((item: UserData) => {
-        const searchStr = (item.name + item.color).toLowerCase();
+      this.filteredData = this._exampleDatabase.data.slice().filter((item: Student) => {
+        const searchStr = (item.stdntname + item.grandtotal).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
 
@@ -170,24 +150,24 @@ export class ExampleDataSource extends DataSource<any> {
   disconnect() {}
 
   /** Returns a sorted copy of the database data. */
-  sortData(data: UserData[]): UserData[] {
-    if (!this._sort.active || this._sort.direction == '') { return data; }
+  sortData(data: Student[]): Student[] {
+    if (!this._sort.active || this._sort.direction === '') { return data; }
 
     return data.sort((a, b) => {
       let propertyA: number|string = '';
       let propertyB: number|string = '';
 
       switch (this._sort.active) {
-        case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'userName': [propertyA, propertyB] = [a.name, b.name]; break;
-        case 'progress': [propertyA, propertyB] = [a.progress, b.progress]; break;
-        case 'color': [propertyA, propertyB] = [a.color, b.color]; break;
+        case 'ticket': [propertyA, propertyB] = [a.ticket, b.ticket]; break;
+        case 'stdntname': [propertyA, propertyB] = [a.stdntname, b.stdntname]; break;
+        case 'grandtotal': [propertyA, propertyB] = [a.grandtotal, b.grandtotal]; break;
+        case 'grandresult': [propertyA, propertyB] = [a.grandresult, b.grandresult]; break;
       }
 
-      let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
 
-      return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
+      return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
     });
   }
 }

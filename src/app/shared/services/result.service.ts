@@ -9,6 +9,7 @@ import {NotFoundError} from '../errors/not.found.error';
 import {awsBieApiUrl} from '../../../../config/config';
 
 
+
 @Injectable()
 export class ResultService {
   private studentsUrl = awsBieApiUrl + '/students';
@@ -21,7 +22,7 @@ export class ResultService {
   }
 
   getSampleStudents () {
-    const url = 'http://172.16.180.122:3000/api/student/sampleStudents'
+    const url = this.studentsUrl + '/samplestudents'
     return this.http.get(url)
       .map(response => response.json())
       .catch(this.errorHanlder);

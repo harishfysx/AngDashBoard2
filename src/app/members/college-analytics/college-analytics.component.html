@@ -17,50 +17,52 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Checkbox Column -->
-    <ng-container cdkColumnDef="select">
-      <md-header-cell *cdkHeaderCellDef>
-        <md-checkbox (change)="$event ? masterToggle() : null"
-                     [checked]="isAllSelected()"
-                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </md-checkbox>
-      </md-header-cell>
-      <md-cell *cdkCellDef="let row">
-        <md-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? selection.toggle(row.id) : null"
-                     [checked]="selection.isSelected(row.id)">
-        </md-checkbox>
-      </md-cell>
-    </ng-container>
-
     <!-- ID Column -->
-    <ng-container cdkColumnDef="userId">
+    <ng-container cdkColumnDef="ticket">
       <md-header-cell *cdkHeaderCellDef md-sort-header> ID </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+      <md-cell *cdkCellDef="let row"> {{row.ticket}} </md-cell>
     </ng-container>
 
     <!-- Progress Column -->
-    <ng-container cdkColumnDef="progress">
-      <md-header-cell *cdkHeaderCellDef md-sort-header> Progress </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.progress}}% </md-cell>
+    <ng-container cdkColumnDef="stdntname">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.stdntname}} </md-cell>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container cdkColumnDef="userName">
-      <md-header-cell *cdkHeaderCellDef md-sort-header> Name </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    <ng-container cdkColumnDef="grandresult">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Result </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.grandresult}} </md-cell>
     </ng-container>
 
     <!-- Color Column -->
-    <ng-container cdkColumnDef="color">
-      <md-header-cell *cdkHeaderCellDef md-sort-header> Color </md-header-cell>
-      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}} </md-cell>
+    <ng-container cdkColumnDef="grandtotal">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Total </md-header-cell>
+      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.grandtotal}} </md-cell>
+    </ng-container>
+    <!-- Checkbox Column -->
+    <ng-container cdkColumnDef="select">
+      <md-header-cell *cdkHeaderCellDef>
+        Action
+        <!--<md-checkbox (change)="$event ? masterToggle() : null"
+                     [checked]="isAllSelected()"
+                     [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </md-checkbox>-->
+      </md-header-cell>
+
+      <md-cell *cdkCellDef="let row">
+        <button md-raised-button color="warn" >Search</button>
+        <!--<md-button-toggle (click)="$event.stopPropagation()"
+                     (change)="$event ? selection.toggle(row.ticket) : null"
+                     [checked]="selection.isSelected(row.ticket)">
+        </md-button-toggle>-->
+      </md-cell>
     </ng-container>
 
     <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
     <md-row *cdkRowDef="let row; columns: displayedColumns;"
-            [class.example-selected-row]="selection.isSelected(row.id)"
-            (click)="selection.toggle(row.id)">
+            [class.example-selected-row]="selection.isSelected(row.ticket)"
+            (click)="selection.toggle(row.ticket)">
     </md-row>
   </md-table>
 

@@ -3,6 +3,7 @@ import {DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {ResultService} from '../../shared/services/result.service';
+import {Student} from '../../shared/models/student.model';
 
 const breadcrumb: any[] = [
   {
@@ -39,13 +40,6 @@ export class CollegeCollectionsComponent implements OnInit {
   }
 }
 
-
-export interface Student {
-  ticket: number;
-  stdntname: string;
-  grandtotal: string;
-  grandresult: string;
-}
 
 export class SampleStudentsDataSource extends DataSource<any> {
   constructor(private data: Student[]) {
