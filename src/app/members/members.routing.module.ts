@@ -7,6 +7,7 @@ import {WidgetsComponent} from './widgets/widgets.component';
 import {CollegeSearchComponent} from './college-search/college-search.component';
 import {CollegeAnalyticsComponent} from './college-analytics/college-analytics.component';
 import {CollegeCollectionsComponent} from './college-collections/college-collections.component';
+import {CollegeCollectionComponent} from './college-collection/college-collection.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'college-search', component: CollegeSearchComponent},
     { path: 'college-analytics', component: CollegeAnalyticsComponent },
     { path: 'college-collections', component: CollegeCollectionsComponent },
+    { path: 'college-collections/new', component: CollegeCollectionComponent },
     { path: 'widgets', component: WidgetsComponent },
   ] }
 ];

@@ -18,6 +18,7 @@ import { CollegeSearchComponent } from './college-search/college-search.componen
 import { CollegeAnalyticsComponent } from './college-analytics/college-analytics.component';
 import { CollegeCollectionsComponent } from './college-collections/college-collections.component';
 import {CdkTableModule} from '@angular/cdk/table';
+import { CollegeCollectionComponent } from './college-collection/college-collection.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     SmsComponent,
     CollegeSearchComponent,
     CollegeAnalyticsComponent,
-    CollegeCollectionsComponent
+    CollegeCollectionsComponent,
+    CollegeCollectionComponent
   ],
   entryComponents: [SmsComponent],
   imports: [UiModule,

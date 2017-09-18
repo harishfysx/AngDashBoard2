@@ -49,6 +49,10 @@ export class CollegeAnalyticsComponent implements OnInit {
         this.dataSource.filter = this.filter.nativeElement.value;
       });
   }
+  // testFire
+  testFire(row) {
+    console.log(row);
+  }
   isAllSelected(): boolean {
     if (!this.dataSource) { return false; }
     if (this.selection.isEmpty()) { return false; }
@@ -133,7 +137,7 @@ export class ExampleDataSource extends DataSource<any> {
     return Observable.merge(...displayDataChanges).map(() => {
       // Filter data
       this.filteredData = this._exampleDatabase.data.slice().filter((item: Student) => {
-        const searchStr = (item.stdntname + item.grandtotal).toLowerCase();
+        const searchStr = (item.ticket + item.stdntname + item.grandtotal + item.grandresult).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
 

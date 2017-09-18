@@ -7,7 +7,7 @@ import {AuthGuard} from './shared/guard/auth.guard';
 const appRoutes: Routes = [
   {path: '', redirectTo: '/landing', pathMatch: 'full'},
   {path: 'landing', loadChildren: './landing/landing.module#LandingModule'},
-  {path: 'members', loadChildren: './members/members.module#MembersModule'},
+  {path: 'members', loadChildren: './members/members.module#MembersModule', canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/landing'}
 ]
 @NgModule({

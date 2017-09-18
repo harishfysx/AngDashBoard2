@@ -2,15 +2,10 @@
 <div class="example-container mat-elevation-z8">
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
     <md-input-container floatPlaceholder="never">
-      <input mdInput #filter placeholder="Filter users">
+      <input mdInput #filter placeholder="Filter">
     </md-input-container>
   </div>
-  <div class="example-header example-selection-header"
-       *ngIf="!selection.isEmpty()">
-    {{selection.selected.length}}
-    {{selection.selected.length == 1 ? 'user' : 'users'}}
-    selected
-  </div>
+
 
   <md-table #table [dataSource]="dataSource" mdSort>
 
@@ -51,18 +46,14 @@
       </md-header-cell>
 
       <md-cell *cdkCellDef="let row">
-        <button md-raised-button color="warn" >Search</button>
-        <!--<md-button-toggle (click)="$event.stopPropagation()"
-                     (change)="$event ? selection.toggle(row.ticket) : null"
-                     [checked]="selection.isSelected(row.ticket)">
-        </md-button-toggle>-->
+        <button md-raised-button color="warn" (click)="testFire(row)">Delete</button>
       </md-cell>
     </ng-container>
 
     <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
     <md-row *cdkRowDef="let row; columns: displayedColumns;"
             [class.example-selected-row]="selection.isSelected(row.ticket)"
-            (click)="selection.toggle(row.ticket)">
+    >
     </md-row>
   </md-table>
 

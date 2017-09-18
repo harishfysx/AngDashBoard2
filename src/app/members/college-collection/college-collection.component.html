@@ -1,0 +1,41 @@
+<div class="col-md-4 offset-md-4 top-buffer">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  <div class="form-group">
+  <md-input-container>
+    <input placeholder="Class Name"  name="className" ngModel required #className="ngModel" mdInput value="">
+  </md-input-container>
+  </div>
+  <div class="form-group">
+    <md-select placeholder="Year"  name="year" ngModel required #year="ngModel">
+      <md-option *ngFor="let year of years" [value]="year.value">
+        {{ year.viewValue }}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="form-group">
+    <md-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
+      <md-option *ngFor="let state of states" [value]="state.value">
+        {{ state.viewValue }}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="form-group">
+    <md-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
+      <md-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
+        {{ studyYear.viewValue }}
+      </md-option>
+    </md-select>
+    </div>
+  <div class="form-group">
+    <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
+      <md-option *ngFor="let exam of exams" [value]="exam.value">
+        {{ exam.viewValue }}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="row top-buffer">
+
+      <button md-raised-button color="primary" >Add</button>
+  </div>
+</form>
+</div>

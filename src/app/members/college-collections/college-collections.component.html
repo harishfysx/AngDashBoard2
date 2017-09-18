@@ -1,5 +1,7 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
-<div class="example-container mat-elevation-z8">
+
+<a routerLink="/members/college-collections/new" md-raised-button color="accent">New Collection</a>
+<div class="example-container mat-elevation-z8 top-buffer">
   <md-table #table [dataSource]="dataSource">
 
     <!--- Note that these columns can be defined in any order.

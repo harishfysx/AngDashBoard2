@@ -14,6 +14,7 @@ import {ResultService} from './shared/services/result.service';
 import {AppErrorHandler} from './shared/errors/app.error.handler';
 import {AuthService} from './shared/services/auth.service';
 import {AuthGuard} from './shared/guard/auth.guard';
+import {CollectionsService} from './shared/services/collections.service';
 
 
 
@@ -31,7 +32,12 @@ import {AuthGuard} from './shared/guard/auth.guard';
     BrowserAnimationsModule,
     NiComponentsModule
   ],
-  providers: [SharedService, ResultService, AuthService, AuthGuard, { provide: ErrorHandler, useClass: AppErrorHandler }],
+  providers: [SharedService,
+    ResultService,
+    CollectionsService,
+    AuthService,
+    AuthGuard,
+    { provide: ErrorHandler, useClass: AppErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
