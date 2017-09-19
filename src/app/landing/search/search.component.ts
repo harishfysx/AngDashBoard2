@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {ResultService} from '../../shared/services/result.service';
 import {AppError} from '../../shared/errors/app.error';
 import {NotFoundError} from '../../shared/errors/not.found.error';
+import {RefDataService} from '../../shared/services/ref-data.service';
 
 @Component({
   selector: 'app-search',
@@ -14,38 +15,41 @@ export class SearchComponent implements OnInit {
   message;
   student: any;
   resultLoading = false;
-  years = [
-    {value: '2017', viewValue: '2017'},
-    {value: '2016', viewValue: '2016'},
-    {value: '2015', viewValue: '2015'}
-  ];
-  states = [
-    {value: 'ts', viewValue: 'Telangana'},
-    {value: 'ap', viewValue: 'Andhra Pradesh'}
-  ];
-  categories = [
-    {value: 'gen', viewValue: 'General'},
-    {value: 'voc', viewValue: 'Vocational'}
-  ];
-  studyYears = [
-    {value: 'I', viewValue: 'I-Year'},
-    {value: 'II', viewValue: 'II-Year'}
-  ];
-  exams = [
-    {value: 'r', viewValue: 'Regular'},
-    {value: 's', viewValue: 'Supplementary'}
-  ];
+  years;
+  states;
+  categories;
+  studyYears;
+  exams;
 
-  constructor(private resultService: ResultService) { }
+  constructor(private resultService: ResultService,
+              private refDataService: RefDataService) {
+  }
 
   ngOnInit() {
+    // Years
+    this.refDataService.getYears().subscribe((value) => {
+      this.years = value;
+    });
+    // States
+    this.refDataService.getStates().subscribe((value) => {
+      this.states = value;
+    });
+    // Exams
+    this.refDataService.getExams().subscribe((value) => {
+      this.exams = value;
+    });
+    // Categories
+    this.refDataService.getCategories().subscribe((value) => {
+      this.categories = value;
+    });
+    // Study Years
+    this.refDataService.getStudyYears().subscribe((value) => {
+      this.studyYears = value;
+    });
   }
   onSubmit(f: NgForm) {
-    // console.log(f.value.ticket);  // { first: '', last: '' }
-    // console.log(f.valid);  // false
     this.studentFound = !this.studentFound;
     this.resultLoading = true;
-    // this.message = 'result';
     this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
       if (resp.json() != null) {
         this.student = resp.json();

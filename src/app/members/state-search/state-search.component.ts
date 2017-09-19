@@ -6,6 +6,7 @@ import {NotFoundError} from '../../shared/errors/not.found.error';
 import {ResultService} from '../../shared/services/result.service';
 import {MdDialog} from '@angular/material';
 import {SmsComponent} from '../sms/sms.component';
+import {RefDataService} from '../../shared/services/ref-data.service';
 
 const breadcrumb: any[] = [
   {
@@ -31,34 +32,39 @@ export class StateSearchComponent implements OnInit {
   message;
   student: any;
   resultLoading = false;
-  years = [
-    {value: '2017', viewValue: '2017'},
-    {value: '2016', viewValue: '2016'},
-    {value: '2015', viewValue: '2015'}
-  ];
-  states = [
-    {value: 'ts', viewValue: 'Telangana'},
-    {value: 'ap', viewValue: 'Andhra Pradesh'}
-  ];
-  categories = [
-    {value: 'gen', viewValue: 'General'},
-    {value: 'voc', viewValue: 'Vocational'}
-  ];
-  studyYears = [
-    {value: 'I', viewValue: 'I-Year'},
-    {value: 'II', viewValue: 'II-Year'}
-  ];
-  exams = [
-    {value: 'r', viewValue: 'Regular'},
-    {value: 's', viewValue: 'Supplementary'}
-  ];
+  years;
+  states;
+  categories;
+  studyYears;
+  exams;
 
   constructor( private _sharedService: SharedService,
                private resultService: ResultService,
+               private refDataService: RefDataService,
                private dialog: MdDialog) {
     this._sharedService.emitChange(this.pageTitle);
   }
   ngOnInit() {
+    // Years
+    this.refDataService.getYears().subscribe((value) => {
+      this.years = value;
+    });
+    // States
+    this.refDataService.getStates().subscribe((value) => {
+      this.states = value;
+    });
+    // Exams
+    this.refDataService.getExams().subscribe((value) => {
+      this.exams = value;
+    });
+    // Categories
+    this.refDataService.getCategories().subscribe((value) => {
+      this.categories = value;
+    });
+    // Study Years
+    this.refDataService.getStudyYears().subscribe((value) => {
+      this.studyYears = value;
+    });
   }
   onSubmit(f: NgForm) {
     // console.log(f.value.ticket);  // { first: '', last: '' }
