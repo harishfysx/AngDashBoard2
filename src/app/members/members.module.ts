@@ -19,6 +19,7 @@ import { CollegeAnalyticsComponent } from './college-analytics/college-analytics
 import { CollegeCollectionsComponent } from './college-collections/college-collections.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import { CollegeCollectionComponent } from './college-collection/college-collection.component';
+import {CustomFormsModule} from 'ng2-validation';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CollegeCollectionComponent } from './college-collection/college-collect
   imports: [UiModule,
     CommonModule,
     FormsModule,
+    CustomFormsModule,
     ChartsModule,
     AmChartsModule,
     AgmCoreModule.forRoot({

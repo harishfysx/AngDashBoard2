@@ -15,23 +15,29 @@ import {AuthService} from './auth.service';
 @Injectable()
 export class CollectionsService {
   private collectionsUrl = awsBieApiUrl + '/collections';
+  private jwtToken;
 
   constructor(private http: Http,
-              private authService: AuthService ) { }
-  saveCollection (collection: CollectionModel) {
-    console.log(collection);
-    return this.authService.getAuthenticatedUser().getSession((err, session) => {
-      if (err) {
-        console.log(err);
-        return;
+              private authService: AuthService ) {
+    authService.getAuthenticatedUser().getSession((err, session) => {
+      if (err) { console.log(err); } else {
+        this.jwtToken = session.getIdToken().getJwtToken();
+        console.log(this.jwtToken);
       }
-      const jwtToken = session.getIdToken().getJwtToken();
-      const headersVar = new Headers({'Authorization': jwtToken })
-      console.log(jwtToken);
-      return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
-        .map(response => response.json())
-        .catch(this.errorHanlder);
     });
+  }
+  saveCollection (collection: CollectionModel) {
+    const headersVar = new Headers({'Authorization': this.jwtToken })
+    return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
+      .map(response => response.json())
+      .catch(this.errorHanlder);
+  }
+  getCollections () {
+    const url = this.collectionsUrl;
+    const headersVar = new Headers({'Authorization': this.jwtToken });
+    return this.http.get(url + '?sortOrder=asc',  {headers: headersVar})
+      .map(response => response.json())
+      .catch(this.errorHanlder);
   }
   private errorHanlder(error: Response) {
     console.log('called errorHandler')

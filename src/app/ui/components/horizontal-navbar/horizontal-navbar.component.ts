@@ -36,7 +36,6 @@ export class HorizontalNavbarComponent implements OnInit , OnDestroy{
     if (this.isLoggedIn) {
       const currentUser = this.authService.getAuthenticatedUser().getUsername();
       this.loggedInUser = currentUser
-      console.log(currentUser);
     }
   }
 

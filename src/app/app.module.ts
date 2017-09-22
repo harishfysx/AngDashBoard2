@@ -16,6 +16,7 @@ import {AuthService} from './shared/services/auth.service';
 import {AuthGuard} from './shared/guard/auth.guard';
 import {CollectionsService} from './shared/services/collections.service';
 import {RefDataService} from './shared/services/ref-data.service';
+import {CustomFormsModule} from 'ng2-validation';
 
 
 
