@@ -7,7 +7,6 @@ import {ResultService} from '../../shared/services/result.service';
 import {MdDialog} from '@angular/material';
 import {SmsComponent} from '../sms/sms.component';
 import {RefDataService} from '../../shared/services/ref-data.service';
-import {TicketQueryModel} from '../../shared/models/ticketQuery.model';
 
 const breadcrumb: any[] = [
   {
@@ -22,11 +21,11 @@ const breadcrumb: any[] = [
 
 
 @Component({
-  selector: 'app-state-search',
-  templateUrl: './state-search.component.html',
-  styleUrls: ['./state-search.component.scss']
+  selector: 'app-college-add-student',
+  templateUrl: './college-add-student.component.html',
+  styleUrls: ['./college-add-student.component.scss']
 })
-export class StateSearchComponent implements OnInit {
+export class CollegeAddStudentComponent implements OnInit {
   pageTitle = 'IRAAT';
   breadcrumb: any[] = breadcrumb;
   studentFound = false;
@@ -38,7 +37,6 @@ export class StateSearchComponent implements OnInit {
   categories;
   studyYears;
   exams;
-
   constructor( private _sharedService: SharedService,
                private resultService: ResultService,
                private refDataService: RefDataService,
@@ -70,20 +68,10 @@ export class StateSearchComponent implements OnInit {
   onSubmit(f: NgForm) {
     // console.log(f.value.ticket);  // { first: '', last: '' }
     // console.log(f.valid);  // false
-    const formValue = f.value;
-    const queryObj = new TicketQueryModel();
-    queryObj.year = formValue.year;
-    queryObj.state = formValue.state;
-    queryObj.category = formValue.category;
-    queryObj.exam = formValue.exam;
-    queryObj.studyYear = formValue.studyYear;
-    queryObj.ticket = formValue.ticket;
-    console.log(queryObj);
     this.studentFound = !this.studentFound;
     this.resultLoading = true;
     // this.message = 'result';
-    // this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
-     this.resultService.getStudentUnsecured(queryObj).subscribe((resp: any) => {
+    this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
         if (resp.json() != null) {
           this.student = resp.json();
           this.message = 'result';

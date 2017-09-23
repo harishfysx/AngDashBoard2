@@ -2,7 +2,7 @@ export class CollectionModel {
   userName: string;
   className: string;
   exam: string;
-  year: number;
+  year: string;
   state: string;
   studyYear: string;
 }

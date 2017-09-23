@@ -1,0 +1,86 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+<div class="container">
+  <div class="starter-template">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div id="selectBlock">
+        <md-select placeholder="Year" style="padding-right: 30px"  name="year" ngModel required #year="ngModel">
+          <md-option *ngFor="let year of years" [value]="year.value">
+            {{ year.name }}
+          </md-option>
+        </md-select>
+
+        <md-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
+          <md-option *ngFor="let state of states" [value]="state.value">
+            {{ state.name }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
+          <md-option *ngFor="let category of categories" [value]="category.value">
+            {{ category.name }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
+          <md-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
+            {{ studyYear.name }}
+          </md-option>
+        </md-select>
+        <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
+          <md-option *ngFor="let exam of exams" [value]="exam.value">
+            {{ exam.name }}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="row top-buffer">
+        <div class="col offset-md-5 col-md-2 ">
+          <md-input-container>
+            <input mdInput placeholder="Hall Ticket Number"  maxlength="10" style="text-align: center" name="ticket" ngModel required #ticket="ngModel">
+          </md-input-container>
+          <button md-raised-button color="primary" >Search</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="col offset-md-2 col-md-8 top-buffer">
+      <md-progress-bar *ngIf="resultLoading" mode="indeterminate"></md-progress-bar>
+      <div [ngSwitch]="message">
+        <div *ngSwitchCase="'result'"><ni-card
+          title="{{student.stdntname}}"
+          class="mb-0">
+          <div class="flex-xl-first mb-4 mb-md-0">
+            <div class="row">
+              <div class="col-md-4">
+                <h5 class="mt-0">ID: {{student.ticket}}</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="mt-0">Total: {{student.grandtotal}}</h5>
+              </div>
+              <div class="col-md-4">
+                <h5 class="mt-0" > Grade: <span  [ngStyle]="{'color': getColor(student.grandresult)}"> {{student.grandresult}}</span></h5>
+              </div>
+            </div>
+            <div class="table-responsive mb-3">
+              <table class="table table-sm">
+                <tbody>
+                <tr *ngFor="let subject of student.subjects;">
+                  <td style= "padding-left: 30px">{{subject.subjectName}}</td>
+                  <td  class="text-right">
+                    <ni-badge [color]="subject.outcome === 'F' ? 'danger' : 'success'"  [borderRadius]="false">{{subject.marksGained}}</ni-badge>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <button ni-button (click)="openSmsDialogue()" afterIcon="sli-printer" type="success" outline="true"></button>
+          </div>
+        </ni-card> </div>
+        <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
+        <div *ngSwitchCase="'somethingWrong'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Some thing went wrong please try after some time</ni-alert></div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+

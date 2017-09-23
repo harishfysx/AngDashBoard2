@@ -1,3 +1,72 @@
-<p>
-  college-view-collection works!
-</p>
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+<a [routerLink]="['/members/college-collections/addStudent', collectionName]"  md-raised-button color="accent">Add Students</a>
+<div class="top-buffer">
+  <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
+    <md-input-container floatPlaceholder="never">
+      <input mdInput #filter placeholder="Filter">
+    </md-input-container>
+  </div>
+
+
+  <md-table #table [dataSource]="dataSource" mdSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container cdkColumnDef="ticket">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> ID </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.ticket}} </md-cell>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container cdkColumnDef="stdntname">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Name </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.stdntname}} </md-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container cdkColumnDef="grandresult">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Result </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.grandresult}} </md-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container cdkColumnDef="grandtotal">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Total </md-header-cell>
+      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.grandtotal}} </md-cell>
+    </ng-container>
+    <!-- Checkbox Column -->
+    <ng-container cdkColumnDef="select">
+      <md-header-cell *cdkHeaderCellDef>
+        Action
+        <!--<md-checkbox (change)="$event ? masterToggle() : null"
+                     [checked]="isAllSelected()"
+                     [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </md-checkbox>-->
+      </md-header-cell>
+
+      <md-cell *cdkCellDef="let row">
+        <button md-raised-button color="warn" (click)="testFire(row)">Delete</button>
+      </md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"
+            [class.example-selected-row]="selection.isSelected(row.ticket)"
+    >
+    </md-row>
+  </md-table>
+
+  <div class="example-no-results"
+       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No users found matching filter.
+  </div>
+
+  <md-paginator #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="25"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </md-paginator>
+</div>
