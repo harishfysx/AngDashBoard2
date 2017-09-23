@@ -15,6 +15,7 @@ import {AuthService} from './auth.service';
 @Injectable()
 export class CollectionsService {
   private collectionsUrl = awsBieApiUrl + '/collections';
+  private colStudUrl = awsBieApiUrl + '/col-stdnts/';
   private jwtToken;
 
   constructor(private http: Http,
@@ -36,6 +37,14 @@ export class CollectionsService {
     const url = this.collectionsUrl;
     const headersVar = new Headers({'Authorization': this.jwtToken });
     return this.http.get(url + '?sortOrder=asc',  {headers: headersVar})
+      .map(response => response.json())
+      .catch(this.errorHanlder);
+  }
+
+  getStudentsInCollection (className: string, sortField: string, sortOrder: string) {
+    const url = this.colStudUrl + className + '?sortField=' + sortField + '&sortOrder=' + sortOrder;
+    const headersVar = new Headers({'Authorization': this.jwtToken });
+    return this.http.get(url,  {headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
   }

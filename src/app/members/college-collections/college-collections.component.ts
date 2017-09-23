@@ -31,7 +31,7 @@ const breadcrumb: any[] = [
 })
 export class CollegeCollectionsComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
-  displayedColumns = ['className', 'exam', 'state', 'studyYear','select'];
+  displayedColumns = ['className', 'exam', 'state', 'studyYear', 'select'];
   exampleDatabase = new ExampleDatabase1(this.collectionService);
   selection = new SelectionModel<string>(true, []);
   dataSource: ExampleDataSource | null;
@@ -52,9 +52,7 @@ export class CollegeCollectionsComponent implements OnInit {
       });
   }
   // testFire
-  testFire(row) {
-    console.log(row);
-  }
+
   isAllSelected(): boolean {
     if (!this.dataSource) { return false; }
     if (this.selection.isEmpty()) { return false; }

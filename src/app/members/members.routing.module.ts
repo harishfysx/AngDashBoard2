@@ -8,6 +8,7 @@ import {CollegeSearchComponent} from './college-search/college-search.component'
 import {CollegeAnalyticsComponent} from './college-analytics/college-analytics.component';
 import {CollegeCollectionsComponent} from './college-collections/college-collections.component';
 import {CollegeCollectionComponent} from './college-collection/college-collection.component';
+import {CollegeViewCollectionComponent} from './college-view-collection/college-view-collection.component';
 
 
 const routes: Routes = [
@@ -17,8 +18,9 @@ const routes: Routes = [
     { path: 'state-analytics', component: StateAnalyticsComponent },
     { path: 'college-search', component: CollegeSearchComponent},
     { path: 'college-analytics', component: CollegeAnalyticsComponent },
-    { path: 'college-collections', component: CollegeCollectionsComponent },
     { path: 'college-collections/new', component: CollegeCollectionComponent },
+    { path: 'college-collections/:className', component: CollegeViewCollectionComponent },
+    { path: 'college-collections', component: CollegeCollectionsComponent },
     { path: 'widgets', component: WidgetsComponent },
   ] }
 ];

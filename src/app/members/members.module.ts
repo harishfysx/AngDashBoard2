@@ -20,6 +20,7 @@ import { CollegeCollectionsComponent } from './college-collections/college-colle
 import {CdkTableModule} from '@angular/cdk/table';
 import { CollegeCollectionComponent } from './college-collection/college-collection.component';
 import {CustomFormsModule} from 'ng2-validation';
+import { CollegeViewCollectionComponent } from './college-view-collection/college-view-collection.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {CustomFormsModule} from 'ng2-validation';
     CollegeSearchComponent,
     CollegeAnalyticsComponent,
     CollegeCollectionsComponent,
-    CollegeCollectionComponent
+    CollegeCollectionComponent,
+    CollegeViewCollectionComponent
   ],
   entryComponents: [SmsComponent],
   imports: [UiModule,

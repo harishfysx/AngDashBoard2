@@ -1,11 +1,11 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
-<div class="example-container mat-elevation-z8">
+<a routerLink="/members/college-collections/new" md-raised-button color="accent">New Collection</a>
+<div class="top-buffer">
   <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
     <md-input-container floatPlaceholder="never">
       <input mdInput #filter placeholder="Filter">
     </md-input-container>
   </div>
-
 
   <md-table #table [dataSource]="dataSource" mdSort>
 
@@ -46,7 +46,7 @@
       </md-header-cell>
 
       <md-cell *cdkCellDef="let row">
-        <button md-raised-button color="warn" (click)="testFire(row)">Delete</button>
+        <a  [routerLink]="['/members/college-collections',row.className]"> View</a>
       </md-cell>
     </ng-container>
 
