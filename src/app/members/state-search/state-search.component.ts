@@ -68,8 +68,6 @@ export class StateSearchComponent implements OnInit {
     });
   }
   onSubmit(f: NgForm) {
-    // console.log(f.value.ticket);  // { first: '', last: '' }
-    // console.log(f.valid);  // false
     const formValue = f.value;
     const queryObj = new TicketQueryModel();
     queryObj.year = formValue.year;
@@ -78,11 +76,8 @@ export class StateSearchComponent implements OnInit {
     queryObj.exam = formValue.exam;
     queryObj.studyYear = formValue.studyYear;
     queryObj.ticket = formValue.ticket;
-    console.log(queryObj);
     this.studentFound = !this.studentFound;
     this.resultLoading = true;
-    // this.message = 'result';
-    // this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
      this.resultService.getStudentUnsecured(queryObj).subscribe((resp: any) => {
         if (resp.json() != null) {
           this.student = resp.json();

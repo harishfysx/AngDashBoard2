@@ -1,3 +1,4 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
 <div class=" top-buffer row">
     <div class="col-md-6 offset-2">
       <div *ngIf="showError">
@@ -33,6 +34,13 @@
                 {{ studyYear.name }}
               </md-option>
             </md-select>
+          </div>
+          <div class="form-group">
+          <md-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
+            <md-option *ngFor="let category of categories" [value]="category.value">
+              {{ category.name }}
+            </md-option>
+          </md-select>
           </div>
           <div class="form-group">
             <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">

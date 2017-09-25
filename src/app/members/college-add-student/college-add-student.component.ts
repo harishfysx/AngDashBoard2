@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SharedService} from '../shared-service';
 import {NgForm} from '@angular/forms';
 import {AppError} from '../../shared/errors/app.error';
@@ -6,16 +6,19 @@ import {NotFoundError} from '../../shared/errors/not.found.error';
 import {ResultService} from '../../shared/services/result.service';
 import {MdDialog} from '@angular/material';
 import {SmsComponent} from '../sms/sms.component';
-import {RefDataService} from '../../shared/services/ref-data.service';
+import {TicketQueryModel} from '../../shared/models/ticketQuery.model';
+import {ActivatedRoute} from '@angular/router';
+import {CollectionsService} from '../../shared/services/collections.service';
+import {CollectionModel} from '../../shared/models/collection.model';
 
 const breadcrumb: any[] = [
   {
-    title: 'State',
-    link: '/members/state-search'
+    title: 'College',
+    link: '/members/college-search'
   },
   {
-    title: 'Search',
-    link: '/members/state-search'
+    title: 'Collections',
+    link: '/members/college-collections'
   }
 ];
 
@@ -32,46 +35,42 @@ export class CollegeAddStudentComponent implements OnInit {
   message;
   student: any;
   resultLoading = false;
-  years;
-  states;
-  categories;
-  studyYears;
-  exams;
+  collection$: any;
+  collection: CollectionModel;
+
   constructor( private _sharedService: SharedService,
                private resultService: ResultService,
-               private refDataService: RefDataService,
+               private collectionService: CollectionsService,
+               private route: ActivatedRoute,
                private dialog: MdDialog) {
     this._sharedService.emitChange(this.pageTitle);
   }
+
   ngOnInit() {
-    // Years
-    this.refDataService.getYears().subscribe((value) => {
-      this.years = value;
-    });
-    // States
-    this.refDataService.getStates().subscribe((value) => {
-      this.states = value;
-    });
-    // Exams
-    this.refDataService.getExams().subscribe((value) => {
-      this.exams = value;
-    });
-    // Categories
-    this.refDataService.getCategories().subscribe((value) => {
-      this.categories = value;
-    });
-    // Study Years
-    this.refDataService.getStudyYears().subscribe((value) => {
-      this.studyYears = value;
-    });
+    this.route.paramMap
+      .subscribe(params => {
+        const colName = params.get('className');
+        const breadCrumbObj2 =  {title: colName, link: '/members/college-collections/' + colName };
+        const breadCrumbObj3 =  {title: 'Add Student' };
+        this.breadcrumb.splice(2, 2, breadCrumbObj2, breadCrumbObj3);
+        this.collection$ = this.collectionService.getCollectionDetails(colName);
+        this.collection$.subscribe((resp) => {
+          this.collection = resp;
+        });
+      });
   }
   onSubmit(f: NgForm) {
-    // console.log(f.value.ticket);  // { first: '', last: '' }
-    // console.log(f.valid);  // false
+    const formValue = f.value;
+    const queryObj = new TicketQueryModel();
+    queryObj.year = this.collection.year;
+    queryObj.state = this.collection.state;
+    queryObj.category = this.collection.category;
+    queryObj.exam = this.collection.exam;
+    queryObj.studyYear = this.collection.studyYear;
+    queryObj.ticket = formValue.ticket;
     this.studentFound = !this.studentFound;
     this.resultLoading = true;
-    // this.message = 'result';
-    this.resultService.getStudent(f.value.ticket).subscribe((resp: any) => {
+    this.resultService.getStudentUnsecured(queryObj).subscribe((resp: any) => {
         if (resp.json() != null) {
           this.student = resp.json();
           this.message = 'result';
@@ -86,6 +85,8 @@ export class CollegeAddStudentComponent implements OnInit {
           console.log('its not found error');
           this.resultLoading = false;
         }else {
+          this.resultLoading = false;
+          this.message = 'somethingWrong';
           throw error ;
         }
       });

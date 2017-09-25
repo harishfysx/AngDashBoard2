@@ -5,4 +5,5 @@ export class CollectionModel {
   year: string;
   state: string;
   studyYear: string;
+  category: string;
 }

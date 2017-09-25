@@ -16,13 +16,12 @@ import {CollectionModel} from '../../shared/models/collection.model';
 
 const breadcrumb: any[] = [
   {
-    title: 'College',
+  title: 'College',
     link: '/members/college-search'
-  },
-  {
-    title: 'Collections',
-    link: '/members/college-collections'
-  }
+},
+{
+  title: 'Collections'
+}
 ];
 @Component({
   selector: 'app-college-collections',

@@ -40,6 +40,24 @@ export class CollectionsService {
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
+  getCollectionDetails (colName: string) {
+    const url = `${this.collectionsUrl}/${colName}`;
+    const headersVar = new Headers({'Authorization': this.jwtToken });
+    return this.http.get(url + '?sortOrder=asc',  {headers: headersVar})
+      .map(response => {
+        const item = response.json().Item;
+          const collection: CollectionModel = new CollectionModel();
+          collection.userName =  item.userName.S;
+          collection.className =  item.className.S;
+          collection.exam =  item.exam.S;
+          collection.state =  item.state.S;
+          collection.studyYear =  item.studyYear.S;
+          collection.year =  item.year.S;
+          collection.category =  item.category.S;
+        return collection;
+      })
+      .catch(this.errorHanlder);
+  }
 
   getStudentsInCollection (className: string, sortField: string, sortOrder: string) {
     const url = this.colStudUrl + className + '?sortField=' + sortField + '&sortOrder=' + sortOrder;

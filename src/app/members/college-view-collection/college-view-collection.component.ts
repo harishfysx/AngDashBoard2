@@ -47,7 +47,7 @@ export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         const colName = params.get('className');
         this.collectionName = colName;
-        const breadCrumbObj =  {title: colName, link: '/members/college-collections'};
+        const breadCrumbObj =  {title: colName };
         this.breadcrumb.splice(2, 1, breadCrumbObj);
       });
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);

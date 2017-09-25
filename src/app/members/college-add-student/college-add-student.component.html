@@ -1,44 +1,33 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
-<div class="container">
-  <div class="starter-template">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-      <div id="selectBlock">
-        <md-select placeholder="Year" style="padding-right: 30px"  name="year" ngModel required #year="ngModel">
-          <md-option *ngFor="let year of years" [value]="year.value">
-            {{ year.name }}
-          </md-option>
-        </md-select>
-
-        <md-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
-          <md-option *ngFor="let state of states" [value]="state.value">
-            {{ state.name }}
-          </md-option>
-        </md-select>
-        <md-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
-          <md-option *ngFor="let category of categories" [value]="category.value">
-            {{ category.name }}
-          </md-option>
-        </md-select>
-        <md-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
-          <md-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
-            {{ studyYear.name }}
-          </md-option>
-        </md-select>
-        <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
-          <md-option *ngFor="let exam of exams" [value]="exam.value">
-            {{ exam.name }}
-          </md-option>
-        </md-select>
+  <ni-card>
+    <div class="row" *ngIf= "collection$ | async; let collection1;">
+      <div class="col-md-4">
+        <p> Class Name: {{collection1.className }}</p>
       </div>
-      <div class="row top-buffer">
-        <div class="col offset-md-5 col-md-2 ">
-          <md-input-container>
-            <input mdInput placeholder="Hall Ticket Number"  maxlength="10" style="text-align: center" name="ticket" ngModel required #ticket="ngModel">
-          </md-input-container>
-          <button md-raised-button color="primary" >Search</button>
+      <div class="col-md-2" >
+        <p> Year: {{collection1.year}}</p>
+      </div>
+      <div class="col-md-2">
+        <p> Exam: {{collection1.exam}}</p>
+      </div>
+      <div class="col-md-2">
+        <p> Study Year: {{collection1.studyYear }}</p>
+      </div>
+        <div class="col-md-2">
+          <p> State: {{collection1.state }}</p>
+        </div>
+    </div>
+      <div class="row">
+        <div class="col-md-3">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+            <md-input-container>
+              <input mdInput placeholder="Hall Ticket Number"  maxlength="10" style="text-align: center" name="ticket" ngModel required #ticket="ngModel">
+            </md-input-container>
+            <button md-raised-button color="primary" >Search</button>
+          </form>
         </div>
       </div>
-    </form>
+  </ni-card>
 
     <div class="col offset-md-2 col-md-8 top-buffer">
       <md-progress-bar *ngIf="resultLoading" mode="indeterminate"></md-progress-bar>
@@ -79,8 +68,6 @@
     </div>
 
 
-  </div>
-</div>
 
 
 

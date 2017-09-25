@@ -8,7 +8,19 @@ import {RefDataService} from '../../shared/services/ref-data.service';
 import 'rxjs/add/operator/first';
 import _ from 'lodash';
 
-
+const breadcrumb: any[] = [
+  {
+    title: 'College',
+    link: '/members/college-search'
+  },
+  {
+    title: 'Collections',
+    link: '/members/college-collections'
+  },
+  {
+    title: 'New Collection'
+  }
+];
 
 @Component({
   selector: 'app-college-collection',
@@ -18,6 +30,7 @@ import _ from 'lodash';
 
 
 export class CollegeCollectionComponent implements OnInit {
+  breadcrumb: any[] = breadcrumb;
   currentUser;
   showError = false;
   errorMessage = '';
@@ -65,6 +78,7 @@ export class CollegeCollectionComponent implements OnInit {
     collection.state = formValue.state;
     collection.studyYear = formValue.studyYear;
     collection.exam = formValue.exam;
+    collection.category = formValue.category;
     this.collectionService.saveCollection(collection)
       .first()
       .subscribe(response => {
