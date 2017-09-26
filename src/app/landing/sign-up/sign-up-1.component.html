@@ -1,9 +1,9 @@
 <app-nav-bar></app-nav-bar><!-- /.navbar-->
     <ni-card [title]="'Create your account'" [align]="'center'">
       <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm">
-        <md-input-container>
+        <mat-form-field>
           <input
-            mdInput
+            matInput
             placeholder="User Name"
             type="email"
             id="userName"
@@ -13,10 +13,10 @@
             class="form-control text-center"
             required
             >
-        </md-input-container>
-        <md-input-container>
+        </mat-form-field>
+        <mat-form-field>
           <input
-            mdInput
+            matInput
             placeholder="Email address"
             type="email"
             id="email"
@@ -26,11 +26,11 @@
             class="form-control text-center"
             required
             email>
-        </md-input-container>
+        </mat-form-field>
 
-        <md-input-container>
+        <mat-form-field>
           <input
-            mdInput
+            matInput
             placeholder="Password"
             type="password"
             id="password"
@@ -39,11 +39,11 @@
             #password="ngModel"
             class="form-control text-center"
             required>
-        </md-input-container>
+        </mat-form-field>
 
-        <md-input-container>
+        <mat-form-field>
           <input
-            mdInput
+            matInput
             placeholder="Confirm Password"
             type="password"
             id="confirmPassword"
@@ -52,16 +52,16 @@
             #confirmPassword="ngModel"
             class="form-control text-center"
             required>
-        </md-input-container>
-        <md-error *ngIf="(signupForm.value.password !== signupForm.value.confirmPassword) && (signupForm.controls.confirmPassword.touched)" >
-          Passwords do not match!</md-error>
+        </mat-form-field>
+        <mat-error *ngIf="(signupForm.value.password !== signupForm.value.confirmPassword) && (signupForm.controls.confirmPassword.touched)" >
+          Passwords do not match!</mat-error>
         <div class="text-left mb-module">
-          <md-checkbox>
+          <mat-checkbox>
             I have read and agree to the terms of service.
-          </md-checkbox>
+          </mat-checkbox>
         </div>
 
-        <button md-raised-button color="primary" type="submit">Sign Up</button>
+        <button mat-raised-button color="primary" type="submit">Sign Up</button>
 
         <div class="additional-info">
           Already have an account?

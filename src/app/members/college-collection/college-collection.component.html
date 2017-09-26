@@ -7,50 +7,50 @@
         <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
 
           <div class="form-group" style="width: 50%">
-            <md-input-container >
-              <input placeholder="Class Name"  name="className" ngModel required #className="ngModel" mdInput value="" [rangeLength]="[1, 20]" class="form-control">
-            </md-input-container>
-            <md-error *ngIf="className.errors?.rangeLength">
+            <mat-form-field >
+              <input placeholder="Class Name"  name="className" ngModel required #className="ngModel" matInput value="" [rangeLength]="[1, 20]" class="form-control">
+            </mat-form-field>
+            <mat-error *ngIf="className.errors?.rangeLength">
               Class Name can not exceed more than 20 characters
-            </md-error>
+            </mat-error>
           </div>
           <div class="form-group">
-            <md-select placeholder="Year"  name="year" ngModel required #year="ngModel">
-              <md-option *ngFor="let year of years" [value]="year.value">
+            <mat-select placeholder="Year"  name="year" ngModel required #year="ngModel">
+              <mat-option *ngFor="let year of years" [value]="year.value">
                 {{ year.name }}
-              </md-option>
-            </md-select>
+              </mat-option>
+            </mat-select>
           </div>
           <div class="form-group">
-            <md-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
-              <md-option *ngFor="let state of states" [value]="state.value">
+            <mat-select placeholder="State" style="padding-right: 30px" name="state" ngModel required #state="ngModel">
+              <mat-option *ngFor="let state of states" [value]="state.value">
                 {{ state.name }}
-              </md-option>
-            </md-select>
+              </mat-option>
+            </mat-select>
           </div>
           <div class="form-group">
-            <md-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
-              <md-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
+            <mat-select placeholder="Study Year" style="padding-right: 30px" name="studyYear" ngModel required #studyYear="ngModel">
+              <mat-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
                 {{ studyYear.name }}
-              </md-option>
-            </md-select>
+              </mat-option>
+            </mat-select>
           </div>
           <div class="form-group">
-          <md-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
-            <md-option *ngFor="let category of categories" [value]="category.value">
+          <mat-select placeholder="Category" style="padding-right: 30px" name="category" ngModel required #category="ngModel">
+            <mat-option *ngFor="let category of categories" [value]="category.value">
               {{ category.name }}
-            </md-option>
-          </md-select>
+            </mat-option>
+          </mat-select>
           </div>
           <div class="form-group">
-            <md-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
-              <md-option *ngFor="let exam of exams" [value]="exam.value">
+            <mat-select placeholder="Exam" style="padding-right: 30px" name="exam" ngModel required #exam="ngModel">
+              <mat-option *ngFor="let exam of exams" [value]="exam.value">
                 {{ exam.name }}
-              </md-option>
-            </md-select>
+              </mat-option>
+            </mat-select>
           </div>
           <div class="form-group pull-left">
-            <button md-raised-button color="primary" >Add</button>
+            <button mat-raised-button color="primary" >Add</button>
           </div>
 
         </form>

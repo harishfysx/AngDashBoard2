@@ -5,7 +5,6 @@ import {MembersComponent} from './members.component';
 import {StateAnalyticsComponent} from './state-analytics/state-analytics.component';
 import {WidgetsComponent} from './widgets/widgets.component';
 import {CollegeSearchComponent} from './college-search/college-search.component';
-import {CollegeAnalyticsComponent} from './college-analytics/college-analytics.component';
 import {CollegeCollectionsComponent} from './college-collections/college-collections.component';
 import {CollegeCollectionComponent} from './college-collection/college-collection.component';
 import {CollegeViewCollectionComponent} from './college-view-collection/college-view-collection.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
     { path: 'state-search', component: StateSearchComponent },
     { path: 'state-analytics', component: StateAnalyticsComponent },
     { path: 'college-search', component: CollegeSearchComponent},
-    { path: 'college-analytics', component: CollegeAnalyticsComponent },
     { path: 'college-collections/new', component: CollegeCollectionComponent },
     { path: 'college-collections/:className', component: CollegeViewCollectionComponent },
     { path: 'college-collections/addStudent/:className', component: CollegeAddStudentComponent },

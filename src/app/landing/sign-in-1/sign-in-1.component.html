@@ -1,9 +1,9 @@
 <app-nav-bar></app-nav-bar><!-- /.navbar-->
 <ni-card [title]="'Sign in with your app id to continue'" [align]="'center'">
   <form (ngSubmit)="onSubmit(signInForm)" #signInForm="ngForm">
-    <md-input-container>
+    <mat-form-field>
       <input
-        mdInput
+        matInput
         placeholder="Email address"
         type="email"
         id="email"
@@ -13,11 +13,11 @@
         class="form-control text-center"
         required
         email>
-    </md-input-container>
+    </mat-form-field>
 
-    <md-input-container>
+    <mat-form-field>
       <input
-        mdInput
+        matInput
         placeholder="Password"
         type="password"
         id="password"
@@ -26,15 +26,15 @@
         #password="ngModel"
         class="form-control text-center"
         required>
-    </md-input-container>
+    </mat-form-field>
 
     <div class="text-left mb-module">
-      <md-checkbox>
+      <mat-checkbox>
         Keep me signed in
-      </md-checkbox>
+      </mat-checkbox>
     </div>
 
-    <button md-raised-button disabled="{{signInForm.invalid}}" color="primary"  type="submit">Sign In</button>
+    <button mat-raised-button disabled="{{signInForm.invalid}}" color="primary"  type="submit">Sign In</button>
       <div class="top-buffer" *ngIf="invalidLogin" >
           <ni-alert  [close]="true" [color]="'danger'"><strong>Oh snap!</strong> {{invalidMessage}}</ni-alert>
       </div>

@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import {AppError} from '../../shared/errors/app.error';
 import {NotFoundError} from '../../shared/errors/not.found.error';
 import {ResultService} from '../../shared/services/result.service';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {SmsComponent} from '../sms/sms.component';
 import {RefDataService} from '../../shared/services/ref-data.service';
 import {TicketQueryModel} from '../../shared/models/ticketQuery.model';
@@ -42,7 +42,7 @@ export class StateSearchComponent implements OnInit {
   constructor( private _sharedService: SharedService,
                private resultService: ResultService,
                private refDataService: RefDataService,
-               private dialog: MdDialog) {
+               private dialog: MatDialog) {
     this._sharedService.emitChange(this.pageTitle);
   }
   ngOnInit() {

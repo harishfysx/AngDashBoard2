@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {DataSource} from '@angular/cdk/collections';
+import {DataSource, SelectionModel} from '@angular/cdk/collections';
 import {CollectionsService} from '../../shared/services/collections.service';
-import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -35,8 +35,8 @@ export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
   dataSource: ExampleDataSource | null;
   collectionName = '';
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
   constructor(private route: ActivatedRoute,
@@ -136,8 +136,8 @@ export class ExampleDataSource extends DataSource<any> {
   renderedData: ColStudent[] = [];
 
   constructor(private _exampleDatabase: ExampleDatabase,
-              private _paginator: MdPaginator,
-              private _sort: MdSort) {
+              private _paginator: MatPaginator,
+              private _sort: MatSort) {
     super();
 
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
@@ -148,7 +148,7 @@ export class ExampleDataSource extends DataSource<any> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
-      this._sort.mdSortChange,
+      this._sort._matSortChange,
       this._filterChange,
       this._paginator.page,
     ];

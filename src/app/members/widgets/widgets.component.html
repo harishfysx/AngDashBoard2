@@ -6,7 +6,7 @@
       <div class="title text-uppercase">Orders</div>
       <div class="count">2,145</div>
       <ni-badge [customColor]="'rgba(255,255,255,0.3)'" [borderRadius]="false">+17%</ni-badge> <small>from previous period</small>
-      <md-icon>shopping_basket</md-icon>
+      <mat-icon>shopping_basket</mat-icon>
     </ni-card>
   </div>
 
@@ -15,7 +15,7 @@
       <div class="title text-uppercase">Revenue</div>
       <div class="count">$ 50,24</div>
       <small>11750</small>
-      <md-icon>equalizer</md-icon>
+      <mat-icon>equalizer</mat-icon>
     </ni-card>
   </div>
 
@@ -24,7 +24,7 @@
       <div class="title text-uppercase">Products</div>
       <div class="count">2,543</div>
       <ni-badge [customColor]="'rgba(255,255,255,0.3)'" [borderRadius]="false">+210</ni-badge>
-      <md-icon>monetization_on</md-icon>
+      <mat-icon>monetization_on</mat-icon>
     </ni-card>
   </div>
 
@@ -33,7 +33,7 @@
       <div class="title text-uppercase">Sold</div>
       <div class="count">1,005</div>
       <ni-badge [customColor]="'rgba(255,255,255,0.3)'" [borderRadius]="false">+24%</ni-badge>
-      <md-icon>donut_large</md-icon>
+      <mat-icon>donut_large</mat-icon>
     </ni-card>
   </div>
 
@@ -191,28 +191,28 @@
 <div class="row">
   <div class="col-lg-6">
     <ni-card [title]="'Users'" class="mb-lg-0">
-      <md-list>
-        <md-list-item *ngFor="let message of messages">
-          <img md-list-avatar src="{{ message.avatar }}" width="40" height="40" alt="">
-          <h3 md-line class="h3">{{ message.from }}</h3>
-          <p md-line><i>
+      <mat-list>
+        <mat-list-item *ngFor="let message of messages">
+          <img mat-list-avatar src="{{ message.avatar }}" width="40" height="40" alt="">
+          <h3 matLine class="h3">{{ message.from }}</h3>
+          <p matLine><i>
             <span>{{message.subject}}</span>
             <span> -- {{ message.content }}</span>
           </i></p>
-        </md-list-item>
-      </md-list>
+        </mat-list-item>
+      </mat-list>
     </ni-card>
   </div>
 
   <div class="col-lg-6">
     <ni-card [title]="'To do list'" class="mb-0">
-      <md-list>
-        <md-list-item *ngFor="let folder of folders">
-          <md-icon md-list-avatar>{{folder.icon}}<ni-badge *ngIf="folder.badge" [color]="'danger'" [position]="'top-right'">{{folder.badge}}</ni-badge></md-icon>
-          <h4 md-line>{{folder.name}}</h4>
-          <p md-line><i>{{folder.updated}}</i></p>
-        </md-list-item>
-      </md-list>
+      <mat-list>
+        <mat-list-item *ngFor="let folder of folders">
+          <mat-icon mat-list-avatar>{{folder.icon}}<ni-badge *ngIf="folder.badge" [color]="'danger'" [position]="'top-right'">{{folder.badge}}</ni-badge></mat-icon>
+          <h4 matLine>{{folder.name}}</h4>
+          <p matLine><i>{{folder.updated}}</i></p>
+        </mat-list-item>
+      </mat-list>
     </ni-card>
   </div>
 </div>

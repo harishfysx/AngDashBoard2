@@ -38,10 +38,6 @@ export const MENU: any = [
       {
         title: 'Search',
         routing: '/members/college-search'
-      },
-      {
-        title: 'Analytics',
-        routing: '/members/college-analytics'
       }
     ]
   },
