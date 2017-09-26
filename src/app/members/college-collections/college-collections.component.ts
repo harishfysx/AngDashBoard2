@@ -1,43 +1,65 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort} from '@angular/material';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/debounceTime';
-import {CollectionsService} from '../../shared/services/collections.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DatatableComponent} from '@swimlane/ngx-datatable';
+import {MockUpService} from '../../shared/demos/mockup.service';
 
 
-const breadcrumb: any[] = [
-  {
-  title: 'College',
-    link: '/members/college-search'
-},
-{
-  title: 'Collections'
-}
-];
+
+
+
 @Component({
   selector: 'app-college-collections',
   templateUrl: './college-collections.component.html',
   styleUrls: ['./college-collections.component.scss']
 })
-export class CollegeCollectionsComponent implements OnInit {
-  breadcrumb: any[] = breadcrumb;
+export class CollegeCollectionsComponent {
+  rows = [];
 
+  temp = [];
 
+  columns = [
+    { prop: 'name' },
+    { name: 'Company' },
+    { name: 'Gender' }
+  ];
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
+  constructor(private mockService: MockUpService) {
+    this.fetch((data) => {
+      // cache our list
+      this.temp = [...data];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('filter') filter: ElementRef;
-
-  constructor(private collectionService: CollectionsService) {
+      // push our inital complete list
+      this.rows = data;
+    });
   }
 
-  ngOnInit() {
+  fetch(cb) {
+    /*
+    const req = new XMLHttpRequest();
+    req.open('GET', `../../shared/demos/company.json`);
+    req.onload = () => {
+      cb(JSON.parse(req.response));
+    };
+    req.send();
+    */
+    this.mockService.getSampleCompanies().subscribe((res) => {
+      console.log(res);
+      cb(res);
+    });
+  }
+
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 }
 

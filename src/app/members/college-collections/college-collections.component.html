@@ -1,1 +1,21 @@
-<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+<div>
+  <mat-form-field>
+    <input matInput
+           type='text'
+           placeholder='Type to filter the name column...'
+           (keyup)='updateFilter($event)'
+    >
+  </mat-form-field>
+
+  <ngx-datatable
+    #table
+    class='material'
+    [columns]="columns"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="10"
+    [rows]='rows'>
+  </ngx-datatable>
+</div>

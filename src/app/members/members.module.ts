@@ -22,6 +22,7 @@ import { CollegeViewCollectionComponent } from './college-view-collection/colleg
 import { CollegeAddStudentComponent } from './college-add-student/college-add-student.component';
 import {MatPaginatorModule, MatTableModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule,
   MatButtonModule, MatDialogModule } from '@angular/material';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatPaginatorModule, MatTableModule, MatFormFieldModule, MatOptionModule,
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxDatatableModule
   ],
   providers: []
 })

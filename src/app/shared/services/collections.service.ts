@@ -28,7 +28,7 @@ export class CollectionsService {
     });
   }
   saveCollection (collection: CollectionModel) {
-    const headersVar = new Headers({'Authorization': this.jwtToken })
+    const headersVar = new Headers({'Authorization': this.jwtToken });
     return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
@@ -67,7 +67,7 @@ export class CollectionsService {
       .catch(this.errorHanlder);
   }
   private errorHanlder(error: Response) {
-    console.log('called errorHandler')
+    console.log('called errorHandler');
     if (error.status === 404) {
       return Observable.throw(new NotFoundError());
     }

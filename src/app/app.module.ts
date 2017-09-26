@@ -17,6 +17,7 @@ import {AuthGuard} from './shared/guard/auth.guard';
 import {CollectionsService} from './shared/services/collections.service';
 import {RefDataService} from './shared/services/ref-data.service';
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
+import {MockUpService} from './shared/demos/mockup.service';
 
 
 
@@ -35,6 +36,7 @@ import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
     NiComponentsModule
   ],
   providers: [SharedService,
+    MockUpService,
     ResultService,
     CollectionsService,
     AuthService,
