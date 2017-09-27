@@ -46,11 +46,11 @@
               <div class="col">
                 <mat-card-actions class="button-list pull-right">
                   <button  ni-button (click)="openSmsDialogue()" afterIcon="sli-printer" type="success" outline="true"></button>
-                  <button  ni-button beforeIcon="fa fa-plus" type="info" outline="true"></button>
+                  <button  ni-button (click)="addStudent(student)" beforeIcon="fa fa-plus" type="info" outline="true"></button>
                 </mat-card-actions>
               </div>
             </div>
-
+            <mat-progress-bar [mode]= "addStudentProcessing" class="mb-0"></mat-progress-bar>
             <mat-card-content>
               <table class="table table-sm">
                 <tbody>

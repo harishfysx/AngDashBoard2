@@ -10,6 +10,8 @@ import {TicketQueryModel} from '../../shared/models/ticketQuery.model';
 import {ActivatedRoute} from '@angular/router';
 import {CollectionsService} from '../../shared/services/collections.service';
 import {CollectionModel} from '../../shared/models/collection.model';
+import {CollectionStudent} from '../../shared/models/col-student.model';
+import _ from 'lodash';
 
 const breadcrumb: any[] = [
   {
@@ -35,6 +37,7 @@ export class CollegeAddStudentComponent implements OnInit {
   message;
   student: any;
   resultLoading = false;
+  addStudentProcessing = 'determinate';
   collection$: any;
   collection: CollectionModel;
 
@@ -91,6 +94,32 @@ export class CollegeAddStudentComponent implements OnInit {
         }
       });
     this.resultLoading = false;
+  }
+  // addStudent
+  addStudent(student) {
+    this.addStudentProcessing = 'indeterminate';
+    if ( student != null) {
+      const colStudent = new CollectionStudent();
+      colStudent.stdntname = student.stdntname;
+      colStudent.className = this.collection.className;
+      colStudent.grandtotal = student.grandtotal;
+      colStudent.grandresult = student.grandresult;
+      colStudent.ticket = student.ticket;
+      this.collectionService.saveColStudent(colStudent)
+        .subscribe(response => {
+          console.log(response);
+          if (_.isEmpty(response)) {
+            this.addStudentProcessing = 'determinate';
+          }else {
+            this.addStudentProcessing = 'determinate';
+            if (response.errorMessage === 'The conditional request failed' ) {
+              this.addStudentProcessing = 'determinate';
+            } else {
+              this.addStudentProcessing = 'determinate';
+            }
+          }
+        });
+    }
   }
   // open sms dialogue
   openSmsDialogue() {

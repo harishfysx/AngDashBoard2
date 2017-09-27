@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -9,13 +9,14 @@ import {NotFoundError} from '../errors/not.found.error';
 import {awsBieApiUrl} from '../../../../config/config';
 import {CollectionModel} from '../models/collection.model';
 import {AuthService} from './auth.service';
+import {CollectionStudent} from '../models/col-student.model';
 
 
 
 @Injectable()
 export class CollectionsService {
   private collectionsUrl = awsBieApiUrl + '/collections';
-  private colStudUrl = awsBieApiUrl + '/col-stdnts/';
+  private colStudUrl = awsBieApiUrl + '/col-stdnts';
   private jwtToken;
 
   constructor(private http: Http,
@@ -26,12 +27,6 @@ export class CollectionsService {
         console.log(this.jwtToken);
       }
     });
-  }
-  saveCollection (collection: CollectionModel) {
-    const headersVar = new Headers({'Authorization': this.jwtToken });
-    return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
-      .map(response => response.json())
-      .catch(this.errorHanlder);
   }
   getCollections () {
     const url = this.collectionsUrl;
@@ -60,9 +55,25 @@ export class CollectionsService {
   }
 
   getStudentsInCollection (className: string, sortField: string, sortOrder: string) {
-    const url = this.colStudUrl + className + '?sortField=' + sortField + '&sortOrder=' + sortOrder;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set('sortField', sortField );
+    params.set('sortOrder', sortOrder );
+    const url = this.colStudUrl + '/' + className;
     const headersVar = new Headers({'Authorization': this.jwtToken });
-    return this.http.get(url,  {headers: headersVar})
+    return this.http.get(url,  {search: params, headers: headersVar})
+      .map(response => response.json())
+      .catch(this.errorHanlder);
+  }
+  saveCollection (collection: CollectionModel) {
+    const headersVar = new Headers({'Authorization': this.jwtToken });
+    return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
+      .map(response => response.json())
+      .catch(this.errorHanlder);
+  }
+  saveColStudent (colStudent: CollectionStudent) {
+    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const url = this.colStudUrl;
+    return this.http.post(url, colStudent,  {headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
