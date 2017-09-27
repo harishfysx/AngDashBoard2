@@ -11,6 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CollectionsService} from '../../shared/services/collections.service';
 import {CollectionModel} from '../../shared/models/collection.model';
 import {CollectionStudent} from '../../shared/models/col-student.model';
+import { MatSnackBar } from '@angular/material';
 import _ from 'lodash';
 
 const breadcrumb: any[] = [
@@ -28,7 +29,7 @@ const breadcrumb: any[] = [
 @Component({
   selector: 'app-college-add-student',
   templateUrl: './college-add-student.component.html',
-  styleUrls: ['./college-add-student.component.scss']
+  styleUrls: ['./college-add-student.component.scss'],
 })
 export class CollegeAddStudentComponent implements OnInit {
   pageTitle = 'IRAAT';
@@ -45,7 +46,8 @@ export class CollegeAddStudentComponent implements OnInit {
                private resultService: ResultService,
                private collectionService: CollectionsService,
                private route: ActivatedRoute,
-               private dialog: MatDialog) {
+               private dialog: MatDialog,
+               public snackBar: MatSnackBar) {
     this._sharedService.emitChange(this.pageTitle);
   }
 
@@ -124,6 +126,12 @@ export class CollegeAddStudentComponent implements OnInit {
   // open sms dialogue
   openSmsDialogue() {
     this.dialog.open(SmsComponent);
+  }
+  //
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000, verticalPosition: 'bottom', horizontalPosition: 'right'
+    });
   }
   // getClasses
   getColor(outome) {

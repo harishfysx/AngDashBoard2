@@ -21,7 +21,7 @@ import {CustomFormsModule} from 'ng2-validation';
 import { CollegeViewCollectionComponent } from './college-view-collection/college-view-collection.component';
 import { CollegeAddStudentComponent } from './college-add-student/college-add-student.component';
 import {MatPaginatorModule, MatTableModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule,
-  MatButtonModule, MatDialogModule, MatCardModule, MatProgressBarModule } from '@angular/material';
+  MatButtonModule, MatDialogModule, MatCardModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 @NgModule({
@@ -59,6 +59,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
+    MatSnackBarModule,
     MatProgressBarModule,
     NgxDatatableModule
   ],
