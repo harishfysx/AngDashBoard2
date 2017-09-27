@@ -1,65 +1,55 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
 import {MockUpService} from '../../shared/demos/mockup.service';
-
-
-
-
-
+import {CollectionsService} from '../../shared/services/collections.service';
+const breadcrumb: any[] = [
+  {
+    title: 'College',
+    link: '/members/college-search'
+  },
+  {
+    title: 'Collections'
+  }
+];
 @Component({
   selector: 'app-college-collections',
   templateUrl: './college-collections.component.html',
   styleUrls: ['./college-collections.component.scss']
 })
-export class CollegeCollectionsComponent {
+export class CollegeCollectionsComponent implements OnInit{
+  breadcrumb: any[] = breadcrumb;
   rows = [];
-
   temp = [];
-
   columns = [
-    { prop: 'name' },
-    { name: 'Company' },
-    { name: 'Gender' }
+    { name: 'Class Name', prop: 'className'},
+    { name: 'Study Year', prop: 'studyYear' },
+    { name: 'Year', prop: 'year'},
+    { name: 'Category', prop: 'category'},
+    { name: 'State', prop: 'state' },
+    { name: 'Exam', prop: 'exam' }
   ];
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private mockService: MockUpService) {
-    this.fetch((data) => {
-      // cache our list
-      this.temp = [...data];
+  constructor(private collectionService: CollectionsService) {}
 
-      // push our inital complete list
-      this.rows = data;
+  ngOnInit(): void {
+    this.fetch((data) => {
+      this.temp = [...data]; // cache our list
+      this.rows = data; // push our inital complete list
     });
   }
-
   fetch(cb) {
-    /*
-    const req = new XMLHttpRequest();
-    req.open('GET', `../../shared/demos/company.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
-    */
-    this.mockService.getSampleCompanies().subscribe((res) => {
-      console.log(res);
+    this.collectionService.getCollections().subscribe((res) => {
       cb(res);
     });
   }
-
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-
-    // filter our data
-    const temp = this.temp.filter(function(d) {
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+    const temp = this.temp.filter(function(d) {  // filter our data
+      return d.className.toLowerCase().indexOf(val) !== -1 || !val;
     });
-
-    // update the rows
-    this.rows = temp;
-    // Whenever the filter changes, always go back to the first page
-    this.table.offset = 0;
+    this.rows = temp; // update the rows
+    this.table.offset = 0; // Whenever the filter changes, always go back to the first page
   }
 }
 

@@ -1,21 +1,34 @@
+<ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
 <div>
-  <mat-form-field>
-    <input matInput
-           type='text'
-           placeholder='Type to filter the name column...'
-           (keyup)='updateFilter($event)'
-    >
-  </mat-form-field>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field>
+        <input matInput type='text' placeholder='Type to filter the Class Name' (keyup)='updateFilter($event)'>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <a routerLink="/members/college-collections/new" mat-raised-button color="accent">+ New Collection </a>
+    </div>
+  </div>
+
 
   <ngx-datatable
     #table
     class='material'
-    [columns]="columns"
     [columnMode]="'force'"
     [headerHeight]="50"
     [footerHeight]="50"
     [rowHeight]="'auto'"
     [limit]="10"
     [rows]='rows'>
+    <ngx-datatable-column name="Class Name" prop="className"></ngx-datatable-column>
+    <ngx-datatable-column name="state"></ngx-datatable-column>
+    <ngx-datatable-column name="state"></ngx-datatable-column>
+    <ngx-datatable-column name="state"></ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <a  [routerLink]="['/members/college-collections',row.className]"  mat-raised-button color="primary"> View</a>
+      </ng-template>
+    </ngx-datatable-column>
   </ngx-datatable>
 </div>

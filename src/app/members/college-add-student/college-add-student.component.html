@@ -1,6 +1,6 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
   <ni-card>
-    <div class="row" *ngIf= "collection$ | async; let collection1;">
+    <div class="row" *ngIf= "collection$ | async; let collection1">
       <div class="col-md-4">
         <p> Class Name: {{collection1.className }}</p>
       </div>
@@ -29,25 +29,29 @@
       </div>
   </ni-card>
 
-    <div class="col offset-md-2 col-md-8 top-buffer">
+    <div class="col-md-8 top-buffer">
       <mat-progress-bar *ngIf="resultLoading" mode="indeterminate"></mat-progress-bar>
       <div [ngSwitch]="message">
-        <div *ngSwitchCase="'result'"><ni-card
-          title="{{student.stdntname}}"
-          class="mb-0">
-          <div class="flex-xl-first mb-4 mb-md-0">
+        <div *ngSwitchCase="'result'">
+          <mat-card>
             <div class="row">
-              <div class="col-md-4">
-                <h5 class="mt-0">ID: {{student.ticket}}</h5>
+              <div class="col">
+                <mat-card-header>
+                  <mat-card-title> {{student.stdntname}} </mat-card-title>
+                  <mat-card-subtitle>
+                    <p>ID: {{student.ticket}} ,     Total: {{student.grandtotal}},    Grade: <span  [ngStyle]="{'color': getColor(student.grandresult)}"> {{student.grandresult}}</span></p>
+                  </mat-card-subtitle>
+                </mat-card-header>
               </div>
-              <div class="col-md-4">
-                <h5 class="mt-0">Total: {{student.grandtotal}}</h5>
-              </div>
-              <div class="col-md-4">
-                <h5 class="mt-0" > Grade: <span  [ngStyle]="{'color': getColor(student.grandresult)}"> {{student.grandresult}}</span></h5>
+              <div class="col">
+                <mat-card-actions class="button-list pull-right">
+                  <button  ni-button (click)="openSmsDialogue()" afterIcon="sli-printer" type="success" outline="true"></button>
+                  <button  ni-button beforeIcon="fa fa-plus" type="info" outline="true"></button>
+                </mat-card-actions>
               </div>
             </div>
-            <div class="table-responsive mb-3">
+
+            <mat-card-content>
               <table class="table table-sm">
                 <tbody>
                 <tr *ngFor="let subject of student.subjects;">
@@ -58,10 +62,12 @@
                 </tr>
                 </tbody>
               </table>
-            </div>
-            <button ni-button (click)="openSmsDialogue()" afterIcon="sli-printer" type="success" outline="true"></button>
-          </div>
-        </ni-card> </div>
+            </mat-card-content>
+
+
+
+        </mat-card>
+        </div>
         <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
         <div *ngSwitchCase="'somethingWrong'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Some thing went wrong please try after some time</ni-alert></div>
       </div>
