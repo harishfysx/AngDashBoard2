@@ -20,6 +20,7 @@ import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import {MockUpService} from './shared/demos/mockup.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent

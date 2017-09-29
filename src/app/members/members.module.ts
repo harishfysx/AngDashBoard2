@@ -24,6 +24,7 @@ import {MatPaginatorModule, MatTableModule, MatFormFieldModule, MatOptionModule,
   MatButtonModule, MatDialogModule, MatCardModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
+
 @NgModule({
   declarations: [
     StateSearchComponent,
