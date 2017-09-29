@@ -39,6 +39,7 @@ export class CollegeAddStudentComponent implements OnInit {
   student: any;
   resultLoading = false;
   addStudentProcessing = 'determinate';
+  showAddStudentError = '';
   collection$: any;
   collection: CollectionModel;
 
@@ -65,6 +66,7 @@ export class CollegeAddStudentComponent implements OnInit {
       });
   }
   onSubmit(f: NgForm) {
+    this.showAddStudentError = '';
     const formValue = f.value;
     const queryObj = new TicketQueryModel();
     queryObj.ticket = formValue.ticket;
@@ -101,6 +103,7 @@ export class CollegeAddStudentComponent implements OnInit {
   // addStudent
   addStudent(student) {
     this.addStudentProcessing = 'indeterminate';
+    this.showAddStudentError = '';
     if ( student != null) {
       const colStudent = new CollectionStudent();
       colStudent.stdntname = student.stdntname;
@@ -113,12 +116,15 @@ export class CollegeAddStudentComponent implements OnInit {
           console.log(response);
           if (_.isEmpty(response)) {
             this.addStudentProcessing = 'determinate';
+            this.showAddStudentError = 'student added';
           }else {
             this.addStudentProcessing = 'determinate';
             if (response.errorMessage === 'The conditional request failed' ) {
               this.addStudentProcessing = 'determinate';
+              this.showAddStudentError = 'student exists';
             } else {
               this.addStudentProcessing = 'determinate';
+              this.showAddStudentError = 'something wrong';
             }
           }
         });
@@ -127,12 +133,6 @@ export class CollegeAddStudentComponent implements OnInit {
   // open sms dialogue
   openSmsDialogue() {
     this.dialog.open(SmsComponent);
-  }
-  //
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000, verticalPosition: 'bottom', horizontalPosition: 'right'
-    });
   }
   // getClasses
   getColor(outome) {

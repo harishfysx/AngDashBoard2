@@ -6,6 +6,7 @@ import {CollectionModel} from '../../shared/models/collection.model';
 import {CollectionsService} from '../../shared/services/collections.service';
 import {RefDataService} from '../../shared/services/ref-data.service';
 import 'rxjs/add/operator/first';
+import { MatSnackBar } from '@angular/material';
 import _ from 'lodash';
 
 const breadcrumb: any[] = [
@@ -31,6 +32,7 @@ const breadcrumb: any[] = [
 
 export class CollegeCollectionComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
+  addCollectionProcessing = 'determinate';
   currentUser;
   showError = false;
   errorMessage = '';
@@ -42,7 +44,8 @@ export class CollegeCollectionComponent implements OnInit {
   constructor(private authService: AuthService,
               private collectionService: CollectionsService,
               private refDataService: RefDataService,
-              private router: Router) {
+              private router: Router,
+              public snackBar: MatSnackBar) {
     this.currentUser  = this.authService.getAuthenticatedUser().getUsername();
   }
 
@@ -70,6 +73,7 @@ export class CollegeCollectionComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
+    this.addCollectionProcessing = 'indeterminate';
     this.showError = false;
     const collection = new CollectionModel();
     const formValue = f.value;
@@ -84,9 +88,11 @@ export class CollegeCollectionComponent implements OnInit {
       .subscribe(response => {
                   if (_.isEmpty(response)) {
                     this.router.navigate(['members/college-collections']);
+                    this.addCollectionProcessing = 'determinate';
                     this.showError = false;
                   }else {
                     this.showError = true;
+                    this.addCollectionProcessing = 'determinate';
                       if (response.errorMessage === 'The conditional request failed' ) {
                         this.errorMessage = 'Class Name already exists';
                       } else {
@@ -96,4 +102,11 @@ export class CollegeCollectionComponent implements OnInit {
       });
   }
 
+  //
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000, verticalPosition: 'bottom',
+      horizontalPosition: 'right',
+    });
+  }
 }
