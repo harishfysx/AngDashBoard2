@@ -27,6 +27,7 @@ const breadcrumb: any[] = [
 export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
   breadcrumb: any[] = breadcrumb;
   collectionName = '';
+  studentsLoading = false;
   rows = [];
   temp = [];
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -34,6 +35,7 @@ export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
               private collectionService: CollectionsService) { }
 
   ngOnInit() {
+    this.studentsLoading = true;
     this.route.paramMap
       .subscribe(params => {
         const colName = params.get('className');
@@ -43,7 +45,8 @@ export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
         this.fetch((data) => {
           this.temp = [...data]; // cache our list
           this.rows = data; // push our inital complete list
-        }, colName);
+          this.studentsLoading = false;
+          }, colName);
       });
   }
   fetch(cb, className) {

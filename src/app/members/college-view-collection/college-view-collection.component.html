@@ -1,10 +1,17 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
-<a [routerLink]="['/members/college-collections/addStudent', collectionName]"  mat-raised-button color="accent">Add Students</a>
 <div>
-  <mat-form-field>
-    <input matInput type='text' placeholder='Type to filter the Class Name' (keyup)='updateFilter($event)'>
-  </mat-form-field>
-<ngx-datatable
+<div class="row">
+  <div class="col-md-4">
+    <mat-form-field>
+      <input matInput type='text' placeholder='Type Student Name' (keyup)='updateFilter($event)'>
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <a [routerLink]="['/members/college-collections/addStudent', collectionName]"  mat-raised-button color="accent">+ Add Students</a>
+  </div>
+</div>
+  <mat-progress-bar *ngIf="studentsLoading" mode="indeterminate"></mat-progress-bar>
+  <ngx-datatable
   #table
   class='material'
   [columnMode]="'force'"

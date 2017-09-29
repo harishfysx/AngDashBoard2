@@ -1,6 +1,7 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
 
 <div class=" top-buffer col-md-6 offset-1">
+
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
       <div class="row">
           <div class="form-group col">
@@ -54,10 +55,10 @@
       <div class="row">
         <div class="col-md-2 form-group">
             <button mat-raised-button color="primary" >Add</button>
-          <mat-progress-bar *ngIf= "addCollectionProcessing === 'indeterminate'" [mode]= "addCollectionProcessing" class="mt-1"></mat-progress-bar>
         </div>
-        <div class="col offset-1" *ngIf="showError">
-          <ni-alert class="align-center" [color]="'danger'" [close]="true">{{errorMessage}} </ni-alert>
+        <div class="col offset-1" >
+          <mat-progress-bar *ngIf= "addCollectionProcessing === 'indeterminate'" [mode]= "addCollectionProcessing" class="mt-1"></mat-progress-bar>
+          <ni-alert *ngIf="showError" class="align-center" [color]="'danger'" [close]="true">{{errorMessage}} </ni-alert>
         </div>
       </div>
     </form>

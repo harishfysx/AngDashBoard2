@@ -18,24 +18,20 @@ const breadcrumb: any[] = [
 })
 export class CollegeCollectionsComponent implements OnInit{
   breadcrumb: any[] = breadcrumb;
+  collectionsLoading = false;
   rows = [];
   temp = [];
-  columns = [
-    { name: 'Class Name', prop: 'className'},
-    { name: 'Study Year', prop: 'studyYear' },
-    { name: 'Year', prop: 'year'},
-    { name: 'Category', prop: 'category'},
-    { name: 'State', prop: 'state' },
-    { name: 'Exam', prop: 'exam' }
-  ];
+
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(private collectionService: CollectionsService) {}
 
   ngOnInit(): void {
+    this.collectionsLoading = true;
     this.fetch((data) => {
       this.temp = [...data]; // cache our list
       this.rows = data; // push our inital complete list
+      this.collectionsLoading = false;
     });
   }
   fetch(cb) {
