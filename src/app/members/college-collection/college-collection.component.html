@@ -1,2 +1,78 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
 
+<div class=" top-buffer col-md-6 offset-1">
+    <div *ngIf="showError">
+      <ni-alert [color]="'danger'" [close]="true">{{errorMessage}} </ni-alert>
+    </div>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <mat-select placeholder="Year"  name="year" ngModel required #year="ngModel">
+              <mat-option *ngFor="let year of years" [value]="year.value">
+                {{ year.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <mat-select placeholder="State"  name="state" ngModel required [style.width]="'80%'" #state="ngModel">
+              <mat-option *ngFor="let state of states" [value]="state.value">
+                {{ state.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <mat-select placeholder="Study Year" name="studyYear" ngModel required #studyYear="ngModel">
+              <mat-option *ngFor="let studyYear of studyYears" [value]="studyYear.value">
+                {{ studyYear.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group">
+            <mat-select placeholder="Category"  name="category" ngModel required #category="ngModel">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <mat-select placeholder="Exam"  name="exam" ngModel required #exam="ngModel">
+              <mat-option *ngFor="let exam of exams" [value]="exam.value">
+                {{ exam.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="form-group">
+            <mat-input-container >
+              <input placeholder="Class Name"  name="className" [style.width]="'100%'" ngModel required #className="ngModel" matInput value="" [rangeLength]="[1, 20]" class="form-control">
+            </mat-input-container>
+            <mat-error *ngIf="className.errors?.rangeLength">
+              Class Name can not exceed more than 20 characters
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <div class="form-group pull-left">
+        <button mat-raised-button color="primary" >Add</button>
+      </div>
+
+    </form>
+
+  </div>
+

@@ -67,15 +67,16 @@ export class CollegeAddStudentComponent implements OnInit {
   onSubmit(f: NgForm) {
     const formValue = f.value;
     const queryObj = new TicketQueryModel();
+    queryObj.ticket = formValue.ticket;
     queryObj.year = this.collection.year;
     queryObj.state = this.collection.state;
     queryObj.category = this.collection.category;
     queryObj.exam = this.collection.exam;
     queryObj.studyYear = this.collection.studyYear;
-    queryObj.ticket = formValue.ticket;
-    this.studentFound = !this.studentFound;
+    this.studentFound = false;
     this.resultLoading = true;
     this.resultService.getStudentUnsecured(queryObj).subscribe((resp: any) => {
+      console.log(resp.json());
         if (resp.json() != null) {
           this.student = resp.json();
           this.message = 'result';
