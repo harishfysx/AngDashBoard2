@@ -11,7 +11,6 @@ import {ActivatedRoute} from '@angular/router';
 import {CollectionsService} from '../../shared/services/collections.service';
 import {CollectionModel} from '../../shared/models/collection.model';
 import {CollectionStudent} from '../../shared/models/col-student.model';
-import { MatSnackBar } from '@angular/material';
 import _ from 'lodash';
 
 const breadcrumb: any[] = [
@@ -40,6 +39,7 @@ export class CollegeAddStudentComponent implements OnInit {
   resultLoading = false;
   addStudentProcessing = 'determinate';
   showAddStudentError = '';
+  showAddStudentMessage = '';
   collection$: any;
   collection: CollectionModel;
 
@@ -47,8 +47,7 @@ export class CollegeAddStudentComponent implements OnInit {
                private resultService: ResultService,
                private collectionService: CollectionsService,
                private route: ActivatedRoute,
-               private dialog: MatDialog,
-               public snackBar: MatSnackBar) {
+               private dialog: MatDialog) {
     this._sharedService.emitChange(this.pageTitle);
   }
 
@@ -117,14 +116,16 @@ export class CollegeAddStudentComponent implements OnInit {
           if (_.isEmpty(response)) {
             this.addStudentProcessing = 'determinate';
             this.showAddStudentError = 'student added';
+            this.showAddStudentMessage = student.stdntname + ' successfully  added to ' + this.collection.className;
           }else {
             this.addStudentProcessing = 'determinate';
             if (response.errorMessage === 'The conditional request failed' ) {
               this.addStudentProcessing = 'determinate';
               this.showAddStudentError = 'student exists';
+              this.showAddStudentMessage = student.stdntname + ' already in ' + this.collection.className;
             } else {
               this.addStudentProcessing = 'determinate';
-              this.showAddStudentError = 'something wrong';
+              this.showAddStudentError = 'Something wrong!. Please try again after some time';
             }
           }
         });

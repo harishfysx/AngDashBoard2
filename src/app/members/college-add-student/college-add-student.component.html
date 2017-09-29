@@ -28,15 +28,17 @@
         </div>
       </div>
   </ni-card>
-<div [ngSwitch] = "showAddStudentError" class="col-md-8  mb-1">
-  <div *ngSwitchCase="'student added'"><ni-alert class="align-center" [color]="'success'" [close]="true"> Successfully added </ni-alert></div>
-  <div *ngSwitchCase="'student exists'"><ni-alert class="align-center" [color]="'warning'" [close]="true"> Student already exist</ni-alert></div>
-  <div *ngSwitchCase="'something wrong'"><ni-alert class="align-center" [color]="'danger'" [close]="true"> Something went wrong </ni-alert></div>
+<div [ngSwitch] = "showAddStudentError" class="col-md-8  mb-1 ">
+  <div *ngSwitchCase="'student added'"><ni-alert  [color]="'success'" [close]="true"> {{showAddStudentMessage}}</ni-alert></div>
+  <div *ngSwitchCase="'student exists'"><ni-alert  [color]="'warning'" [close]="true"> {{showAddStudentMessage}}</ni-alert></div>
+  <div *ngSwitchCase="'something wrong'"><ni-alert  [color]="'danger'" [close]="true"> {{showAddStudentMessage}} </ni-alert></div>
 </div>
 
     <div class="col-md-8 top-buffer">
       <mat-progress-bar *ngIf="resultLoading" mode="indeterminate"></mat-progress-bar>
       <div [ngSwitch]="message">
+        <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
+        <div *ngSwitchCase="'somethingWrong'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Some thing went wrong please try after some time</ni-alert></div>
         <div *ngSwitchCase="'result'">
           <mat-card>
             <div class="row">
@@ -71,8 +73,6 @@
             </mat-card-content>
         </mat-card>
         </div>
-        <div *ngSwitchCase="'notFound'"><ni-alert [color]="'warning'"><strong>Not Found!</strong>Result not found for the above hall ticket</ni-alert></div>
-        <div *ngSwitchCase="'somethingWrong'"><ni-alert [color]="'danger'"><strong>Oh snap!</strong> Some thing went wrong please try after some time</ni-alert></div>
 
       </div>
     </div>

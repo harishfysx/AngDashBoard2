@@ -55,7 +55,7 @@ export class CollegeViewCollectionComponent implements OnInit, OnDestroy {
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function(d) {  // filter our data
-      return d.className.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.stdntname.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows = temp; // update the rows
     this.table.offset = 0; // Whenever the filter changes, always go back to the first page
