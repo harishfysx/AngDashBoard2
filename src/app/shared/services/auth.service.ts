@@ -12,6 +12,7 @@ import {
 import { User } from './user.model';
 import { UserPoolId } from '../../../../config/config';
 import { ClientId } from '../../../../config/config';
+import {observable} from 'rxjs/symbol/observable';
 const poolData = {
   UserPoolId : UserPoolId, // Your user pool id here
   ClientId : ClientId // Your client id here
@@ -88,6 +89,19 @@ export class AuthService {
   }
   getAuthenticatedUser = (): CognitoUser => {
     return userPool.getCurrentUser();
+  }
+  getJWTtoken = (): Observable<string> => {
+    return Observable.create( (obs) => {
+     const cognitoUser = userPool.getCurrentUser();
+     if (cognitoUser != null) {
+          cognitoUser.getSession((err, session) => {
+            obs.next(session.getIdToken().getJwtToken());
+            obs.complete();
+          });
+     } else {
+       obs.error('something happened');
+     }
+    });
   }
   logOut = () => {
       return Observable.create((observer) => {

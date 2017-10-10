@@ -13,6 +13,7 @@ import {PageForgotComponent} from './forgot/forgot.component';
 import {PageConfirmComponent} from './confirm/confirm.component';
 import {UiModule} from '../ui/ui.module';
 import { MatOptionModule, MatSelectModule, MatInputModule, MatButtonModule } from '@angular/material';
+import {TestComponent} from './test/test.component';
 
 
 
@@ -37,6 +38,7 @@ import { MatOptionModule, MatSelectModule, MatInputModule, MatButtonModule } fro
     PageSignUp1Component,
     PageSignInComponent,
     PageForgotComponent,
+    TestComponent,
     PageConfirmComponent],
   exports: []
 })

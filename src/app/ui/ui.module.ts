@@ -10,6 +10,8 @@ import {FooterComponent} from './components/footer/footer.component';
 import {AdditionNavbarComponent} from './components/addition-navbar/addition-navbar.component';
 import {MenuComponent} from './components/menu/menu.component';
 import { MatProgressBarModule } from '@angular/material';
+import { FavoriteComponent } from './components/favorite/favorite.component';
+import { BrickComponent } from './components/brick/brick.component';
 @NgModule({
   declarations: [
     HorizontalNavbarComponent,
@@ -17,7 +19,9 @@ import { MatProgressBarModule } from '@angular/material';
     LogoComponent,
     FooterComponent,
     AdditionNavbarComponent,
-    MenuComponent
+    MenuComponent,
+    FavoriteComponent,
+    BrickComponent
 
   ],
   exports: [
@@ -26,7 +30,9 @@ import { MatProgressBarModule } from '@angular/material';
     LogoComponent,
     FooterComponent,
     AdditionNavbarComponent,
-    MenuComponent
+    MenuComponent,
+    FavoriteComponent,
+    BrickComponent
   ],
   imports: [
     HttpModule,

@@ -1,0 +1,21 @@
+@import '../../../assets/sass/variable';
+
+:host {
+  .container{
+    background-color: darkgray;
+    h1 {
+      color: mintcream;
+      text-align: center;
+    }
+    .square {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+      margin: auto;
+    }
+    #circle {
+      color: darkred;
+    }
+  }
+
+}

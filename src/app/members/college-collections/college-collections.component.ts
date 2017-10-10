@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DatatableComponent} from '@swimlane/ngx-datatable';
-import {MockUpService} from '../../shared/demos/mockup.service';
 import {CollectionsService} from '../../shared/services/collections.service';
+import {Subscription} from 'rxjs/Subscription';
 const breadcrumb: any[] = [
   {
     title: 'College',
@@ -16,9 +16,10 @@ const breadcrumb: any[] = [
   templateUrl: './college-collections.component.html',
   styleUrls: ['./college-collections.component.scss']
 })
-export class CollegeCollectionsComponent implements OnInit{
+export class CollegeCollectionsComponent implements OnInit, OnDestroy {
   breadcrumb: any[] = breadcrumb;
   collectionsLoading = false;
+  collectionService$: Subscription;
   rows = [];
   temp = [];
 
@@ -35,7 +36,7 @@ export class CollegeCollectionsComponent implements OnInit{
     });
   }
   fetch(cb) {
-    this.collectionService.getCollections().subscribe((res) => {
+    this.collectionService$ = this.collectionService.getCollections().subscribe((res) => {
       cb(res);
     });
   }
@@ -46,6 +47,9 @@ export class CollegeCollectionsComponent implements OnInit{
     });
     this.rows = temp; // update the rows
     this.table.offset = 0; // Whenever the filter changes, always go back to the first page
+  }
+  ngOnDestroy(): void {
+    this.collectionService$.unsubscribe();
   }
 }
 

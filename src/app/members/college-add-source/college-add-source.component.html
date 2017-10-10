@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>Please add class to the collection</p>
+
+  <!--<mat-form-field>
+    <input matInput tabindex="1" [(ngModel)]="data.animal">
+  </mat-form-field>-->
+
+  <mat-select tabindex="1" placeholder="Select class" [(ngModel)]="data.className" name="food" style="width: 200px">
+    <mat-option  *ngFor="let collection of collections" [value]="collection.className">
+      {{ collection.className }}
+    </mat-option>
+  </mat-select>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.className" tabindex="2">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
+</div>

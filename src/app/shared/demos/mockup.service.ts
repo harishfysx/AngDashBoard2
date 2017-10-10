@@ -40,6 +40,13 @@ export class MockUpService {
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
+
+  getSampleCollections () {
+    const url = this.testEndPointURl + '/-samplecollections';
+    return this.http.get(url)
+      .map(response => response.json())
+      .catch(this.errorHanlder);
+  }
   private errorHanlder(error: Response) {
     console.log('called errorHandler')
     if (error.status === 404) {

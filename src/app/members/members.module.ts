@@ -23,6 +23,7 @@ import { CollegeAddStudentComponent } from './college-add-student/college-add-st
 import {MatPaginatorModule, MatTableModule, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule,
   MatButtonModule, MatDialogModule, MatCardModule, MatProgressBarModule, MatSnackBarModule } from '@angular/material';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {CollegeAddSourceComponent} from './college-add-source/college-add-source.component';
 
 
 @NgModule({
@@ -36,9 +37,10 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
     CollegeCollectionsComponent,
     CollegeCollectionComponent,
     CollegeViewCollectionComponent,
-    CollegeAddStudentComponent
+    CollegeAddStudentComponent,
+    CollegeAddSourceComponent
   ],
-  entryComponents: [SmsComponent],
+  entryComponents: [SmsComponent, CollegeAddSourceComponent],
   imports: [UiModule,
     CommonModule,
     FormsModule,

@@ -1,1 +1,15 @@
 <ni-breadcrumb [menu]="breadcrumb" [style]="'custom1'" class="mb-4"></ni-breadcrumb>
+
+  <div class="row">
+    <div *ngFor="let class of classNames">
+  <app-brick body="{{class}}" (click)="deleteCollection(class)"></app-brick>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <button mat-raised-button color="accent" (click)="openDialogue()"
+            class="pull-right">+ Add Class </button>
+  </div>
+</div>
+

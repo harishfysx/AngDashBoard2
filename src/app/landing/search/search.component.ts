@@ -70,11 +70,14 @@ export class SearchComponent implements OnInit {
     this.resultLoading = false;
   }
   // getClasses
-  getColor(outome) {
-    if (outome === 'FAIL') {
+  getColor(outcome) {
+    if (outcome === 'FAIL') {
       return '#e24d4d';
     }
     return '#64B5F6';
   }
 
+  testFnct(event) {
+    console.log('test', event);
+  }
 }

@@ -17,27 +17,27 @@ import {CollectionStudent} from '../models/col-student.model';
 export class CollectionsService {
   private collectionsUrl = awsBieApiUrl + '/collections';
   private colStudUrl = awsBieApiUrl + '/col-stdnts';
-  private jwtToken;
 
   constructor(private http: Http,
               private authService: AuthService ) {
-    authService.getAuthenticatedUser().getSession((err, session) => {
-      if (err) { console.log(err); } else {
-        this.jwtToken = session.getIdToken().getJwtToken();
-        console.log(this.jwtToken);
-      }
+  }
+  private getJWT (): string {
+     let jwt = '';
+    this.authService.getJWTtoken().subscribe((val) => {
+      jwt = val;
     });
+    return jwt;
   }
   getCollections () {
     const url = this.collectionsUrl;
-    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const headersVar = new Headers({'Authorization': this.getJWT() });
     return this.http.get(url + '?sortOrder=asc',  {headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
   getCollectionDetails (colName: string) {
     const url = `${this.collectionsUrl}/${colName}`;
-    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const headersVar = new Headers({'Authorization': this.getJWT() });
     return this.http.get(url + '?sortOrder=asc',  {headers: headersVar})
       .map(response => {
         const item = response.json().Item;
@@ -59,19 +59,19 @@ export class CollectionsService {
     params.set('sortField', sortField );
     params.set('sortOrder', sortOrder );
     const url = this.colStudUrl + '/' + className;
-    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const headersVar = new Headers({'Authorization': this.getJWT() });
     return this.http.get(url,  {search: params, headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
   saveCollection (collection: CollectionModel) {
-    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const headersVar = new Headers({'Authorization': this.getJWT() });
     return this.http.post(this.collectionsUrl, collection,  {headers: headersVar})
       .map(response => response.json())
       .catch(this.errorHanlder);
   }
   saveColStudent (colStudent: CollectionStudent) {
-    const headersVar = new Headers({'Authorization': this.jwtToken });
+    const headersVar = new Headers({'Authorization': this.getJWT() });
     const url = this.colStudUrl;
     return this.http.post(url, colStudent,  {headers: headersVar})
       .map(response => response.json())
