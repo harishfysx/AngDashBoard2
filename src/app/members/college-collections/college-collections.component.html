@@ -22,9 +22,11 @@
     [limit]="10"
     [rows]='rows'>
     <ngx-datatable-column name="Class Name" prop="className"></ngx-datatable-column>
-    <ngx-datatable-column name="state"></ngx-datatable-column>
-    <ngx-datatable-column name="state"></ngx-datatable-column>
-    <ngx-datatable-column name="state"></ngx-datatable-column>
+    <ngx-datatable-column name="Year" prop="year"></ngx-datatable-column>
+    <ngx-datatable-column name="State" prop="state"></ngx-datatable-column>
+    <ngx-datatable-column name="Category" prop="category"></ngx-datatable-column>
+    <ngx-datatable-column name="Type" prop="exam"></ngx-datatable-column>
+    <ngx-datatable-column name="Study Year" prop="studyYear"></ngx-datatable-column>
     <ngx-datatable-column>
       <ng-template let-row="row" ngx-datatable-cell-template>
         <a  [routerLink]="['/members/college-collections',row.className]"  mat-raised-button color="primary"> View</a>

@@ -15,7 +15,7 @@ const breadcrumb: any[] = [
     link: '/members/college-search'
   },
   {
-    title: 'Collections',
+    title: 'Classes',
     link: '/members/college-collections'
   },
 ];

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import {CollectionModel} from '../../shared/models/collection.model';
 import {CollectionsService} from '../../shared/services/collections.service';
 import {MockUpService} from '../../shared/demos/mockup.service';
-import _ from 'lodash';
+
 import {MatDialog} from '@angular/material';
 import {CollegeAddSourceComponent} from '../college-add-source/college-add-source.component';
 
@@ -27,11 +27,9 @@ const breadcrumb: any[] = [
 })
 export class CollegeSearchComponent implements OnInit {
   breadcrumb: any[] = breadcrumb;
-  classNames = [];
+  classNames = new Set();
   className;
-  // collection: CollectionModel;
-  name = 'harish';
-  animal: string;
+  showWarning = false;
   constructor(private collectionService: CollectionsService,
               public dialog: MatDialog,
               private mockUpService: MockUpService) {}
@@ -48,17 +46,21 @@ export class CollegeSearchComponent implements OnInit {
   }
   //
   deleteCollection(cls) {
-    _.pull(this.classNames, cls);
+   this.classNames.delete(cls);
   }
 
   openDialogue() {
     const dialogRef = this.dialog.open(CollegeAddSourceComponent, {height: '400px',
-      width: '600px', data: { name: this.name, className: this.className }
+      width: '600px', data: {className: this.className, classSet: this.classNames }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      // this.collection = result;
-      this.classNames.push(result);
+      if (result !== null && result !== undefined) {
+        this.classNames.add(result);
+      }
+    });
+    //
+    dialogRef.beforeClose().subscribe((result) => {
+      // console.log('result before closing', result);
     });
   }
 }

@@ -8,7 +8,7 @@ const breadcrumb: any[] = [
     link: '/members/college-search'
   },
   {
-    title: 'Collections'
+    title: 'Classes'
   }
 ];
 @Component({

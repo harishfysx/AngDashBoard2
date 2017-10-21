@@ -32,7 +32,7 @@ export const MENU: any = [
     routing: '/members/college-search',
     sub: [
       {
-        title: 'Collections',
+        title: 'Classes',
         routing: '/members/college-collections'
       },
       {
@@ -40,14 +40,5 @@ export const MENU: any = [
         routing: '/members/college-search'
       }
     ]
-  },
-  {
-    title: 'Widgets',
-    icon: {
-      class: 'fa fa-th',
-      bg: '#E1BEE7',
-      color: 'rgba(0,0,0,.87)'
-    },
-    routing: '/members/widgets'
   }
 ];
